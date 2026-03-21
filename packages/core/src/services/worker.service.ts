@@ -1,14 +1,22 @@
+import { BullhubWorker } from "../models/BullhubWorker";
 import type { BullhubClient } from "../client";
-import { WorkerInfo } from "../types";
+import { BullMQWorkerRaw } from "../types/bullmq";
 
 export class WorkerService {
   constructor(private readonly client: BullhubClient) {}
 
-  async getWorkers(): Promise<WorkerInfo[]> {
+  async index(): Promise<BullhubWorker[]> {
     const results = await Promise.all(
-      this.client.getQueueNames().map((name) => this.client.getQueue(name).getWorkers()),
+      this.client.getQueueNames().map(async (name) => {
+        const queue = this.client.getQueue(name);
+        const workers = (await queue.getWorkers()) as BullMQWorkerRaw[];
+
+        console.log(workers);
+
+        return workers.map((w) => BullhubWorker.fromBullMQ(w, name));
+      }),
     );
 
-    return results.flat() as unknown as WorkerInfo[];
+    return results.flat();
   }
 }

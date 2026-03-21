@@ -7,9 +7,6 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "typeRoots": ["src/types", "./node_modules/@types"],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
   },
   "include": ["src"]
 }

@@ -1,7 +1,8 @@
-import { BullhubClient } from "../client";
-import { WorkerService } from "../services/worker.service";
 import type { ConnectionOptions } from "bullmq";
-import { BullhubContext, BullhubOptions, BullhubRoute } from "@/types";
+import { BullhubClient } from "../client";
+import { ApiResponse } from "../http/ApiResponse";
+import { WorkerService } from "../services/worker.service";
+import { BullhubContext, BullhubOptions, BullhubRoute } from "../types/bullhub";
 
 export function createBullhub(opts: BullhubOptions): BullhubContext {
   const client = new BullhubClient(opts.queues, opts.connection);
@@ -13,7 +14,10 @@ export function createBullhub(opts: BullhubOptions): BullhubContext {
     {
       method: "GET",
       path: "/api/workers",
-      handler: () => worker.getWorkers(),
+      handler: async () => {
+        const result = await worker.index();
+        return ApiResponse.ok(result);
+      },
     },
   ];
 

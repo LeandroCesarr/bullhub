@@ -2,15 +2,13 @@ import type { ConnectionOptions } from "bullmq";
 import type { BullhubClient } from "@/client";
 import type { WorkerService } from "@/services/worker.service";
 
-export interface WorkerInfo {
+export type BullhubWorker = {
   id: string;
   name: string;
-  addr: string;
-  fd: string;
-  age: string;
-  idle: string;
-  flags: string;
-}
+  queue: string;
+  host: string;
+  startedAt: string;
+};
 
 export interface BullhubOptions {
   queues: string[];

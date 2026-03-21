@@ -21,7 +21,7 @@ export function registerBullhub(app: Hono, opts: BullhubOptions) {
                     const body = await c.req.json().catch(() => null)
 
                     const result = await route.handler(params, query, body)
-                    return c.json({data: result})
+                    return c.json(result)
                 } catch (error) {
                     const message = error instanceof Error ? error.message : 'internal server error'
                     return c.json({error: message}, 500)
