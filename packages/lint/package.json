@@ -1,9 +1,9 @@
 {
   "name": "@bullhub/lint",
   "version": "0.0.1",
+  "private": true,
   "description": "Shared oxlint config for bullhub packages",
   "type": "module",
-  "private": true,
   "exports": {
     ".": "./index.ts"
   },
