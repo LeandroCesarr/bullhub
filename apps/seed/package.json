@@ -1,0 +1,26 @@
+{
+  "name": "@bullhub/seed",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch index.ts",
+    "start": "tsx index.ts",
+    "lint": "oxlint src",
+    "lint:fix": "oxlint --fix src",
+    "format": "oxfmt src",
+    "format:check": "oxfmt --check src"
+  },
+  "dependencies": {
+    "@bullhub/core": "workspace:*",
+    "bullmq": "catalog:"
+  },
+  "devDependencies": {
+    "@bullhub/fmt": "workspace:*",
+    "@bullhub/lint": "workspace:*",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:"
+  }
+}
