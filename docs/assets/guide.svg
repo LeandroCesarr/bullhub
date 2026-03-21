@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 920" width="680" height="920" style="font-family:system-ui,-apple-system,sans-serif">
+
+    <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+    </defs>
+
+    <!-- Title -->
+    <text x="40" y="46" font-size="20" font-weight="600" fill="#111110">bullhub</text>
+    <text x="40" y="64" font-size="12" fill="#888780">architecture · decision guide</text>
+
+    <!-- ── MONOREPO ── -->
+    <text x="40" y="98" font-size="10" font-weight="500" fill="#888780" letter-spacing="0.08em">MONOREPO</text>
+
+    <!-- turborepo outer card -->
+    <rect x="40" y="106" width="600" height="76" rx="12" fill="#1a1a18" stroke="#2e2e2b" stroke-width="0.5" stroke-dasharray="5 3"/>
+
+    <!-- apps/web -->
+    <rect x="56" y="120" width="130" height="48" rx="8" fill="#2a2540" stroke="#534AB7" stroke-width="0.5"/>
+    <text x="121" y="141" font-size="12" font-weight="500" fill="#CECBF6" text-anchor="middle">apps/web</text>
+    <text x="121" y="157" font-size="11" fill="#AFA9EC" text-anchor="middle">Vite+ · SPA · TanStack</text>
+
+    <!-- apps/api -->
+    <rect x="202" y="120" width="130" height="48" rx="8" fill="#0d2b22" stroke="#1D9E75" stroke-width="0.5"/>
+    <text x="267" y="141" font-size="12" font-weight="500" fill="#9FE1CB" text-anchor="middle">apps/api</text>
+    <text x="267" y="157" font-size="11" fill="#5DCAA5" text-anchor="middle">Hono · docker mode</text>
+
+    <!-- packages/core -->
+    <rect x="348" y="120" width="130" height="48" rx="8" fill="#0c2340" stroke="#378ADD" stroke-width="0.5"/>
+    <text x="413" y="141" font-size="12" font-weight="500" fill="#B5D4F4" text-anchor="middle">packages/core</text>
+    <text x="413" y="157" font-size="11" fill="#85B7EB" text-anchor="middle">services · Hono app</text>
+
+    <!-- packages/adapters -->
+    <rect x="494" y="120" width="130" height="48" rx="8" fill="#2d1a10" stroke="#D85A30" stroke-width="0.5"/>
+    <text x="559" y="141" font-size="12" font-weight="500" fill="#F5C4B3" text-anchor="middle">packages/adapters</text>
+    <text x="559" y="157" font-size="11" fill="#F0997B" text-anchor="middle">fastify · adonis · nest</text>
+
+    <!-- ── CORE ── -->
+    <text x="40" y="212" font-size="10" font-weight="500" fill="#888780" letter-spacing="0.08em">CORE · createBullhubApp</text>
+
+    <rect x="40" y="220" width="600" height="100" rx="12" fill="#1a1a18" stroke="#2e2e2b" stroke-width="0.5"/>
+
+    <!-- services -->
+    <rect x="56" y="234" width="172" height="72" rx="8" fill="#0c2340" stroke="#378ADD" stroke-width="0.5"/>
+    <text x="142" y="256" font-size="12" font-weight="500" fill="#B5D4F4" text-anchor="middle">services</text>
+    <text x="142" y="272" font-size="11" fill="#85B7EB" text-anchor="middle">job · queue · worker</text>
+    <text x="142" y="288" font-size="11" fill="#85B7EB" text-anchor="middle">pure BullMQ logic</text>
+
+    <line x1="228" y1="270" x2="258" y2="270" stroke="#444441" stroke-width="1" marker-end="url(#arr)"/>
+
+    <!-- hono app -->
+    <rect x="260" y="234" width="172" height="72" rx="8" fill="#0d2b22" stroke="#1D9E75" stroke-width="0.5"/>
+    <text x="346" y="256" font-size="12" font-weight="500" fill="#9FE1CB" text-anchor="middle">Hono app</text>
+    <text x="346" y="272" font-size="11" fill="#5DCAA5" text-anchor="middle">registerRoutes</text>
+    <text x="346" y="288" font-size="11" fill="#5DCAA5" text-anchor="middle">auth middleware</text>
+
+    <line x1="432" y1="270" x2="462" y2="270" stroke="#444441" stroke-width="1" marker-end="url(#arr)"/>
+
+    <!-- app.fetch -->
+    <rect x="464" y="234" width="160" height="72" rx="8" fill="#222220" stroke="#444441" stroke-width="0.5"/>
+    <text x="544" y="256" font-size="12" font-weight="500" fill="#D3D1C7" text-anchor="middle">app.fetch</text>
+    <text x="544" y="272" font-size="11" fill="#888780" text-anchor="middle">Web API standard</text>
+    <text x="544" y="288" font-size="11" fill="#888780" text-anchor="middle">any runtime</text>
+
+    <!-- ── BUILD FLOW ── -->
+    <text x="40" y="350" font-size="10" font-weight="500" fill="#888780" letter-spacing="0.08em">BUILD FLOW · SPA → ADAPTERS</text>
+
+    <rect x="40" y="358" width="130" height="56" rx="8" fill="#2a2540" stroke="#534AB7" stroke-width="0.5"/>
+    <text x="105" y="380" font-size="12" font-weight="500" fill="#CECBF6" text-anchor="middle">vp build</text>
+    <text x="105" y="396" font-size="11" fill="#AFA9EC" text-anchor="middle">generates dist/</text>
+
+    <line x1="170" y1="386" x2="200" y2="386" stroke="#444441" stroke-width="1" marker-end="url(#arr)"/>
+
+    <rect x="202" y="358" width="130" height="56" rx="8" fill="#222220" stroke="#444441" stroke-width="0.5"/>
+    <text x="267" y="380" font-size="12" font-weight="500" fill="#D3D1C7" text-anchor="middle">dist/</text>
+    <text x="267" y="396" font-size="11" fill="#888780" text-anchor="middle">index.html + assets</text>
+
+    <line x1="332" y1="386" x2="362" y2="386" stroke="#444441" stroke-width="1" marker-end="url(#arr)"/>
+
+    <rect x="364" y="358" width="130" height="56" rx="8" fill="#2d1a10" stroke="#D85A30" stroke-width="0.5"/>
+    <text x="429" y="380" font-size="12" font-weight="500" fill="#F5C4B3" text-anchor="middle">copied into</text>
+    <text x="429" y="396" font-size="11" fill="#F0997B" text-anchor="middle">each adapter pkg</text>
+
+    <line x1="494" y1="386" x2="524" y2="386" stroke="#444441" stroke-width="1" marker-end="url(#arr)"/>
+
+    <rect x="526" y="358" width="114" height="56" rx="8" fill="#0d2b22" stroke="#1D9E75" stroke-width="0.5"/>
+    <text x="583" y="380" font-size="12" font-weight="500" fill="#9FE1CB" text-anchor="middle">serve static</text>
+    <text x="583" y="396" font-size="11" fill="#5DCAA5" text-anchor="middle">/bullhub/*</text>
+
+    <!-- ── AUTH ── -->
+    <text x="40" y="444" font-size="10" font-weight="500" fill="#888780" letter-spacing="0.08em">AUTHENTICATION</text>
+
+    <!-- docker auth -->
+    <rect x="40" y="452" width="288" height="120" rx="12" fill="#1a1a18" stroke="#2e2e2b" stroke-width="0.5"/>
+    <rect x="54" y="466" width="22" height="22" rx="11" fill="#2a1f08" stroke="#BA7517" stroke-width="0.5"/>
+    <text x="65" y="481" font-size="11" font-weight="500" fill="#FAC775" text-anchor="middle">1</text>
+    <text x="86" y="475" font-size="12" font-weight="500" fill="#D3D1C7">docker mode</text>
+    <text x="86" y="491" font-size="11" fill="#888780">session stored in Redis</text>
+    <line x1="54" y1="500" x2="314" y2="500" stroke="#2e2e2b" stroke-width="0.5"/>
+
+    <rect x="54" y="510" width="54" height="20" rx="10" fill="#222220" stroke="#444441" stroke-width="0.5"/>
+    <text x="81" y="524" font-size="10" fill="#888780" text-anchor="middle">login UI</text>
+    <line x1="108" y1="520" x2="118" y2="520" stroke="#444441" stroke-width="1" marker-end="url(#arr)"/>
+    <rect x="120" y="510" width="76" height="20" rx="10" fill="#222220" stroke="#444441" stroke-width="0.5"/>
+    <text x="158" y="524" font-size="10" fill="#888780" text-anchor="middle">POST /api/auth</text>
+    <line x1="196" y1="520" x2="206" y2="520" stroke="#444441" stroke-width="1" marker-end="url(#arr)"/>
+    <rect x="208" y="510" width="96" height="20" rx="10" fill="#222220" stroke="#444441" stroke-width="0.5"/>
+    <text x="256" y="524" font-size="10" fill="#888780" text-anchor="middle">opaque token</text>
+
+    <text x="54" y="550" font-size="11" fill="#888780">reuses BullMQ Redis connection</text>
+    <text x="54" y="564" font-size="11" fill="#888780">Authorization: Bearer on every request</text>
+
+    <!-- embedded auth -->
+    <rect x="352" y="452" width="288" height="120" rx="12" fill="#1a1a18" stroke="#2e2e2b" stroke-width="0.5"/>
+    <rect x="366" y="466" width="22" height="22" rx="11" fill="#2a1f08" stroke="#BA7517" stroke-width="0.5"/>
+    <text x="377" y="481" font-size="11" font-weight="500" fill="#FAC775" text-anchor="middle">2</text>
+    <text x="398" y="475" font-size="12" font-weight="500" fill="#D3D1C7">embedded mode</text>
+    <text x="398" y="491" font-size="11" fill="#888780">project manages auth</text>
+    <line x1="366" y1="500" x2="626" y2="500" stroke="#2e2e2b" stroke-width="0.5"/>
+    <text x="366" y="518" font-size="11" fill="#888780">bullhub does not manage auth</text>
+    <text x="366" y="534" font-size="11" fill="#888780">adapter receives validate(req): Promise&lt;boolean&gt;</text>
+    <text x="366" y="550" font-size="11" fill="#888780">plugs into framework's existing auth system</text>
+    <text x="366" y="566" font-size="11" fill="#888780">(Adonis · NestJS guard · Fastify hook)</text>
+
+    <!-- ── DELIVERY PHASES ── -->
+    <text x="40" y="600" font-size="10" font-weight="500" fill="#888780" letter-spacing="0.08em">DELIVERY PHASES</text>
+
+    <rect x="40" y="608" width="288" height="88" rx="12" fill="#1a1a18" stroke="#2e2e2b" stroke-width="0.5"/>
+    <rect x="54" y="622" width="22" height="22" rx="11" fill="#222220" stroke="#444441" stroke-width="0.5"/>
+    <text x="65" y="637" font-size="11" font-weight="500" fill="#888780" text-anchor="middle">1</text>
+    <text x="86" y="631" font-size="12" font-weight="500" fill="#D3D1C7">docker mode</text>
+    <text x="86" y="648" font-size="11" fill="#888780">SPA + Hono api + Docker image</text>
+    <text x="86" y="664" font-size="11" fill="#888780">works with any stack, no install needed</text>
+    <text x="86" y="680" font-size="11" fill="#888780">session auth via Redis</text>
+
+    <rect x="352" y="608" width="288" height="88" rx="12" fill="#1a1a18" stroke="#2e2e2b" stroke-width="0.5"/>
+    <rect x="366" y="622" width="22" height="22" rx="11" fill="#222220" stroke="#444441" stroke-width="0.5"/>
+    <text x="377" y="637" font-size="11" font-weight="500" fill="#888780" text-anchor="middle">2</text>
+    <text x="398" y="631" font-size="12" font-weight="500" fill="#D3D1C7">embedded mode · npm</text>
+    <text x="398" y="648" font-size="11" fill="#888780">same core, same Hono app</text>
+    <text x="398" y="664" font-size="11" fill="#888780">adapter serves dist/ + proxies to core</text>
+    <text x="398" y="680" font-size="11" fill="#888780">auth delegated to host project</text>
+
+    <!-- ── FEATURES ── -->
+    <text x="40" y="724" font-size="10" font-weight="500" fill="#888780" letter-spacing="0.08em">DASHBOARD FEATURES</text>
+    <rect x="40" y="732" width="600" height="52" rx="12" fill="#1a1a18" stroke="#2e2e2b" stroke-width="0.5"/>
+
+    <rect x="54" y="746" width="76" height="22" rx="11" fill="#222220" stroke="#444441" stroke-width="0.5"/>
+    <text x="92" y="761" font-size="10" fill="#888780" text-anchor="middle">list queues</text>
+    <rect x="140" y="746" width="90" height="22" rx="11" fill="#222220" stroke="#444441" stroke-width="0.5"/>
+    <text x="185" y="761" font-size="10" fill="#888780" text-anchor="middle">pause / resume</text>
+    <rect x="240" y="746" width="90" height="22" rx="11" fill="#222220" stroke="#444441" stroke-width="0.5"/>
+    <text x="285" y="761" font-size="10" fill="#888780" text-anchor="middle">retry failed jobs</text>
+    <rect x="340" y="746" width="100" height="22" rx="11" fill="#222220" stroke="#444441" stroke-width="0.5"/>
+    <text x="390" y="761" font-size="10" fill="#888780" text-anchor="middle">manual trigger</text>
+    <rect x="450" y="746" width="90" height="22" rx="11" fill="#222220" stroke="#444441" stroke-width="0.5"/>
+    <text x="495" y="761" font-size="10" fill="#888780" text-anchor="middle">trigger w/ delay</text>
+    <rect x="550" y="746" width="76" height="22" rx="11" fill="#222220" stroke="#444441" stroke-width="0.5"/>
+    <text x="588" y="761" font-size="10" fill="#888780" text-anchor="middle">list workers</text>
+
+    <!-- ── ROADMAP ── -->
+    <text x="40" y="814" font-size="10" font-weight="500" fill="#888780" letter-spacing="0.08em">AUTH ROADMAP · V2+</text>
+    <rect x="40" y="822" width="600" height="52" rx="12" fill="#1a1a18" stroke="#2e2e2b" stroke-width="0.5"/>
+
+    <rect x="54" y="836" width="108" height="22" rx="11" fill="#222220" stroke="#444441" stroke-width="0.5"/>
+    <text x="108" y="851" font-size="10" fill="#888780" text-anchor="middle">multiple users</text>
+    <rect x="172" y="836" width="120" height="22" rx="11" fill="#222220" stroke="#444441" stroke-width="0.5"/>
+    <text x="232" y="851" font-size="10" fill="#888780" text-anchor="middle">read-only / admin roles</text>
+    <rect x="302" y="836" width="90" height="22" rx="11" fill="#222220" stroke="#444441" stroke-width="0.5"/>
+    <text x="347" y="851" font-size="10" fill="#888780" text-anchor="middle">OAuth / SSO</text>
+    <rect x="402" y="836" width="136" height="22" rx="11" fill="#222220" stroke="#444441" stroke-width="0.5"/>
+    <text x="470" y="851" font-size="10" fill="#888780" text-anchor="middle">configurable expiration</text>
+
+    <!-- footer -->
+    <text x="340" y="902" font-size="11" fill="#444441" text-anchor="middle">bullhub · github.com/seu-user/bullhub · MIT</text>
+
+</svg>
