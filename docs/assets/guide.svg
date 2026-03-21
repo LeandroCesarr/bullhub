@@ -49,7 +49,7 @@
 
     <line x1="228" y1="270" x2="258" y2="270" stroke="#444441" stroke-width="1" marker-end="url(#arr)"/>
 
-    <!-- hono app -->
+    <!-- hono-adapter app -->
     <rect x="260" y="234" width="172" height="72" rx="8" fill="#0d2b22" stroke="#1D9E75" stroke-width="0.5"/>
     <text x="346" y="256" font-size="12" font-weight="500" fill="#9FE1CB" text-anchor="middle">Hono app</text>
     <text x="346" y="272" font-size="11" fill="#5DCAA5" text-anchor="middle">registerRoutes</text>

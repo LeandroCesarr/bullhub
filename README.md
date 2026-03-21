@@ -51,27 +51,27 @@ npm install @bullhub/fastify
 ```
 
 ```ts
-import Fastify from 'fastify'
-import { bullhub } from '@bullhub/fastify'
-import { Queue } from 'bullmq'
+import Fastify from "fastify";
+import { bullhub } from "@bullhub/fastify";
+import { Queue } from "bullmq";
 
-const app = Fastify()
+const app = Fastify();
 
 const queues = {
-  email: new Queue('email', { connection }),
-  notifications: new Queue('notifications', { connection }),
-}
+  email: new Queue("email", { connection }),
+  notifications: new Queue("notifications", { connection }),
+};
 
 app.register(bullhub, {
   queues,
   // plug your own auth — return true to allow, false to deny
   auth: async (req) => {
-    const session = await validateSession(req)
-    return session?.role === 'admin'
+    const session = await validateSession(req);
+    return session?.role === "admin";
   },
-})
+});
 
-app.listen({ port: 3000 })
+app.listen({ port: 3000 });
 ```
 
 #### AdonisJS
@@ -82,14 +82,14 @@ npm install @bullhub/adonis
 
 ```ts
 // start/bullhub.ts
-import { bullhub } from '@bullhub/adonis'
+import { bullhub } from "@bullhub/adonis";
 
 bullhub({
   queues,
   auth: async (req) => {
     // your existing adonis auth
   },
-})
+});
 ```
 
 #### NestJS
@@ -99,7 +99,7 @@ npm install @bullhub/nest
 ```
 
 ```ts
-import { BullhubModule } from '@bullhub/nest'
+import { BullhubModule } from "@bullhub/nest";
 
 @Module({
   imports: [
@@ -164,7 +164,7 @@ bullhub({
   auth: async (req: Request): Promise<boolean> => {
     // your logic here
   },
-})
+});
 ```
 
 This keeps Bullhub decoupled from any auth strategy and lets you reuse whatever is already in your project.
@@ -173,11 +173,11 @@ This keeps Bullhub decoupled from any auth strategy and lets you reuse whatever 
 
 ## Environment variables
 
-| Variable            | Description                              | Default     |
-|---------------------|------------------------------------------|-------------|
-| `BULLHUB_PASSWORD`  | Password for the login screen (Docker)   | —           |
-| `REDIS_URL`         | Redis connection string (Docker)         | —           |
-| `PORT`              | Server port (Docker)                     | `3000`      |
+| Variable           | Description                            | Default |
+| ------------------ | -------------------------------------- | ------- |
+| `BULLHUB_PASSWORD` | Password for the login screen (Docker) | —       |
+| `REDIS_URL`        | Redis connection string (Docker)       | —       |
+| `PORT`             | Server port (Docker)                   | `3000`  |
 
 ---
 

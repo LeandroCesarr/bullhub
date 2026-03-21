@@ -22,7 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": [
-    "vp.config.ts"
-  ]
+  "include": ["vp.config.ts"]
 }
