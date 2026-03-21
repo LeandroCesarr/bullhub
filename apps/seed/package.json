@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "tsx watch index.ts",
     "start": "tsx index.ts",
-    "lint": "oxlint src",
-    "lint:fix": "oxlint --fix src",
-    "format": "oxfmt src",
-    "format:check": "oxfmt --check src"
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check ."
   },
   "dependencies": {
     "@bullhub/core": "workspace:*",
@@ -18,9 +18,9 @@
   "devDependencies": {
     "@bullhub/fmt": "workspace:*",
     "@bullhub/lint": "workspace:*",
-    "tsx": "catalog:",
-    "typescript": "catalog:",
     "oxfmt": "catalog:",
-    "oxlint": "catalog:"
+    "oxlint": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:"
   }
 }

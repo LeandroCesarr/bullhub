@@ -19,6 +19,8 @@
   "devDependencies": {
     "@bullhub/fmt": "workspace:*",
     "@bullhub/lint": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:"
   }
 }
