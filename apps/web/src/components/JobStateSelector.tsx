@@ -2,23 +2,15 @@ import type { FC } from "react";
 import { Check, ListFilter, ChevronDown } from "lucide-react";
 import * as Select from "@radix-ui/react-select";
 import { cn } from "../utils/css.ts";
-
-const statusFilters = [
-  { label: "Todos", value: "all" },
-  { label: "Ativo", value: "active" },
-  { label: "Aguardando", value: "waiting" },
-  { label: "Completado", value: "completed" },
-  { label: "Falha", value: "failed" },
-  { label: "Agendado", value: "delayed" },
-];
+import { jobStateData, JobStateEnum } from "../enums/jobStateEnum.ts";
 
 interface JobStateSelectorProps {
-  value?: string;
-  onChange?: (value: string) => void;
+  value?: JobStateEnum;
+  onChange?: (value: JobStateEnum) => void;
 }
 
 export const JobStateSelector: FC<JobStateSelectorProps> = ({ value, onChange }) => {
-  const selected = statusFilters.find((q) => q.value === value);
+  const selected = jobStateData[value as JobStateEnum];
 
   return (
     <Select.Root value={String(value)} onValueChange={onChange}>
@@ -51,10 +43,27 @@ export const JobStateSelector: FC<JobStateSelectorProps> = ({ value, onChange })
           <Select.Viewport className="p-1">
             <div className="my-1 h-px bg-border" />
 
-            {statusFilters.map((status) => (
+            <Select.Item
+              value={undefined as any}
+              className={cn(
+                "relative flex items-center justify-between px-3 py-2 text-sm rounded-sm outline-none cursor-pointer select-none",
+                "text-muted-foreground transition-colors",
+                "data-[highlighted]:bg-secondary data-[highlighted]:text-foreground",
+                "data-[state=checked]:text-foreground",
+              )}
+            >
+              <Select.ItemText>All</Select.ItemText>
+              <div className="flex items-center gap-2">
+                <Select.ItemIndicator>
+                  <Check className="w-3.5 h-3.5 text-primary" />
+                </Select.ItemIndicator>
+              </div>
+            </Select.Item>
+
+            {Object.entries(jobStateData).map(([state, data]) => (
               <Select.Item
-                key={status.value}
-                value={status.value}
+                key={state}
+                value={state}
                 className={cn(
                   "relative flex items-center justify-between px-3 py-2 text-sm rounded-sm outline-none cursor-pointer select-none",
                   "text-muted-foreground transition-colors",
@@ -62,7 +71,7 @@ export const JobStateSelector: FC<JobStateSelectorProps> = ({ value, onChange })
                   "data-[state=checked]:text-foreground",
                 )}
               >
-                <Select.ItemText>{status.label}</Select.ItemText>
+                <Select.ItemText>{data.label}</Select.ItemText>
                 <div className="flex items-center gap-2">
                   <Select.ItemIndicator>
                     <Check className="w-3.5 h-3.5 text-primary" />

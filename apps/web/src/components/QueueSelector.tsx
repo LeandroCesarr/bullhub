@@ -42,7 +42,6 @@ export const QueueSelector: FC<QueueSelectorProps> = ({ value, onChange }) => {
 
       <Select.Portal>
         <Select.Content
-
           position="popper"
           sideOffset={4}
           className={cn(

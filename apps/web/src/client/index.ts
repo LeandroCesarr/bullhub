@@ -1,3 +1,4 @@
+import { stringify } from "qs";
 import { HttpMethodEnum } from "../enums/httpMethodEnum.ts";
 import type { ApiResponse } from "../types";
 
@@ -8,10 +9,15 @@ export class ApiClient {
     method: HttpMethodEnum,
     path: string,
     body?: Record<string, unknown>,
+    query?: Record<string, unknown>,
   ): Promise<ApiResponse<T>> {
-    const url = new URL(`${ApiClient.baseUrl}/${path}`);
+    let url = `${ApiClient.baseUrl}/${path}`;
 
-    const res = await fetch(url, {
+    if (query && method === HttpMethodEnum.GET) {
+      url += `?${stringify(query)}`;
+    }
+
+    const res = await fetch(new URL(url), {
       method,
       headers: { "Content-Type": "application/json" },
       body: body ? JSON.stringify(body) : undefined,

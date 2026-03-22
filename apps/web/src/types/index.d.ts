@@ -3,3 +3,15 @@ export type ApiResponse<T> = {
   message: string;
   data: T;
 };
+
+export type Pagination = {
+  page: number;
+  pageSize: number;
+  total: number;
+  totalPages: number;
+};
+
+export type PaginationResponse<T> = {
+  items: T[];
+  pagination: Pagination;
+};

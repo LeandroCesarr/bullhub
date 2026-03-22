@@ -8,7 +8,7 @@ export const DefaultLayout: FC<PropsWithChildren> = ({ children }) => {
       <Sidebar />
       <main className="flex-1 overflow-auto">
         <Header />
-        {children}
+        <div className="p-6">{children}</div>
       </main>
     </main>
   );

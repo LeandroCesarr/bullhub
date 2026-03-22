@@ -1,6 +1,7 @@
 import { cn } from "../utils/css.ts";
 import type { FC, ReactNode } from "react";
-import {ChevronLeft, ChevronRight, type LucideIcon} from "lucide-react";
+import { ChevronLeft, ChevronRight, type LucideIcon } from "lucide-react";
+import type { Pagination } from "../types";
 
 interface ListRootProps {
   children: ReactNode;
@@ -52,7 +53,7 @@ const ListItem: FC<ListItemProps> = ({ children, className, onClick }) => {
   );
 };
 
-const ListEmpty = ({
+const ListMessage = ({
   message,
   description,
   icon,
@@ -73,53 +74,51 @@ const ListEmpty = ({
 };
 
 interface ListPaginatorProps {
-  page: number;
-  totalPages: number;
-  total: number;
-  pageSize: number;
+  pagination: Pagination;
   onChange: (page: number) => void;
 }
 
-const ListPaginator: FC<ListPaginatorProps> = ({ page, totalPages, total, pageSize, onChange }) => {
+const ListPaginator: FC<ListPaginatorProps> = ({ pagination, onChange }) => {
+  const { page, totalPages, total, pageSize } = pagination;
   const from = (page - 1) * pageSize + 1;
   const to = Math.min(page * pageSize, total);
 
   return (
-      <div className="flex items-center justify-between px-4 py-3 border-t border-border">
+    <div className="flex items-center justify-between px-4 py-3 border-t border-border">
       <span className="text-xs text-muted-foreground">
         {from}–{to} de {total} jobs
       </span>
 
-        <div className="flex items-center gap-1">
-          <button
-              onClick={() => onChange(page - 1)}
-              disabled={page <= 1}
-              className={cn(
-                  "w-8 h-8 flex items-center justify-center rounded-md text-muted-foreground transition-colors",
-                  "hover:bg-secondary hover:text-foreground",
-                  "disabled:opacity-40 disabled:pointer-events-none",
-              )}
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
+      <div className="flex items-center gap-1">
+        <button
+          onClick={() => onChange(page - 1)}
+          disabled={page <= 1}
+          className={cn(
+            "w-8 h-8 flex items-center justify-center rounded-md text-muted-foreground transition-colors",
+            "hover:bg-secondary hover:text-foreground",
+            "disabled:opacity-40 disabled:pointer-events-none",
+          )}
+        >
+          <ChevronLeft className="w-4 h-4" />
+        </button>
 
-          <span className="text-xs text-muted-foreground px-2">
+        <span className="text-xs text-muted-foreground px-2">
           {page} / {totalPages}
         </span>
 
-          <button
-              onClick={() => onChange(page + 1)}
-              disabled={page >= totalPages}
-              className={cn(
-                  "w-8 h-8 flex items-center justify-center rounded-md text-muted-foreground transition-colors",
-                  "hover:bg-secondary hover:text-foreground",
-                  "disabled:opacity-40 disabled:pointer-events-none",
-              )}
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
+        <button
+          onClick={() => onChange(page + 1)}
+          disabled={page >= totalPages}
+          className={cn(
+            "w-8 h-8 flex items-center justify-center rounded-md text-muted-foreground transition-colors",
+            "hover:bg-secondary hover:text-foreground",
+            "disabled:opacity-40 disabled:pointer-events-none",
+          )}
+        >
+          <ChevronRight className="w-4 h-4" />
+        </button>
       </div>
+    </div>
   );
 };
 
@@ -127,6 +126,6 @@ export const List = {
   Root: ListRoot,
   Header: ListHeader,
   Item: ListItem,
-  Empty: ListEmpty,
+  Message: ListMessage,
   Paginator: ListPaginator,
 };

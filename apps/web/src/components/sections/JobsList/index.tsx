@@ -1,152 +1,89 @@
-import {
-  CheckCircle,
-  XCircle,
-  Clock,
-  Loader,
-  Timer,
-  Layers,
-} from "lucide-react";
+import { Fragment } from "react";
+import { Layers } from "lucide-react";
 import { List } from "../../List.tsx";
 import { QueueSelector } from "../../QueueSelector.tsx";
 import { JobStateSelector } from "../../JobStateSelector.tsx";
 import { ListSkeleton } from "./components/ListSkeleton.tsx";
-
-// const statusConfig = {
-//   completed: {
-//     icon: CheckCircle,
-//     color: "text-status-success",
-//     label: "Completado",
-//   },
-//   failed: {
-//     icon: XCircle,
-//     color: "text-status-error",
-//     label: "Falha",
-//   },
-//   active: {
-//     icon: Loader,
-//     color: "text-status-info",
-//     label: "Ativo",
-//   },
-//   waiting: {
-//     icon: Clock,
-//     color: "text-muted-foreground",
-//     label: "Aguardando",
-//   },
-//   delayed: {
-//     icon: Timer,
-//     color: "text-status-warning",
-//     label: "Agendado",
-//   },
-// };
-
-// function timeAgo(timestamp: number) {
-//   const diff = Date.now() - timestamp;
-//   const seconds = Math.floor(diff / 1000);
-//   if (seconds < 60) return "agora";
-//   const minutes = Math.floor(seconds / 60);
-//   if (minutes < 60) return `${minutes}m atrás`;
-//   const hours = Math.floor(minutes / 60);
-//   return `${hours}h atrás`;
-// }
-//
-// function JobProgress({ progress }: { progress: number | object }) {
-//   const value = typeof progress === "number" ? progress : 0;
-//   if (value === 0) return null;
-//
-//   return (
-//     <div className="flex items-center gap-2">
-//       <span className="text-xs text-muted-foreground">Progresso</span>
-//       <div className="w-24 h-1 rounded-full bg-secondary overflow-hidden">
-//         <div
-//           className="h-full rounded-full bg-primary transition-all"
-//           style={{ width: `${value}%` }}
-//         />
-//       </div>
-//       <span className="text-xs text-foreground font-medium">{value}%</span>
-//     </div>
-//   );
-// }
-
-// Mock de dados para exemplo
+import { Route } from "../../../routes/jobs.tsx";
+import { useNavigate } from "@tanstack/react-router";
+import { useJobs } from "../../../hooks/useJobs.ts";
+import { JobListItem } from "./components/JobListItem.tsx";
+import type { JobStateEnum } from "../../../enums/jobStateEnum.ts";
 
 export function JobList() {
+  const navigate = useNavigate({ from: Route.fullPath });
+  const queryParams = Route.useSearch();
+
+  const { data, error, isFetching } = useJobs(queryParams);
+
+  async function handleStateChange(state?: JobStateEnum) {
+    await navigate({
+      search: {
+        ...queryParams,
+        page: 1,
+        state,
+      },
+    });
+  }
+
+  async function handlePageChange(page: number) {
+    await navigate({
+      search: {
+        ...queryParams,
+        page,
+      },
+    });
+  }
+
+  async function handleQueueChange(queueName: string) {
+    await navigate({
+      search: {
+        ...queryParams,
+        page: 1,
+        queueName,
+      },
+    });
+  }
+
   return (
     <section>
       <List.Root>
         <List.Header title="Recent jobs">
           <div className="flex items-center gap-2">
-            <QueueSelector />
-            <JobStateSelector />
+            <QueueSelector value={queryParams.queueName} onChange={handleQueueChange} />
+            <JobStateSelector value={queryParams.state} onChange={handleStateChange} />
           </div>
         </List.Header>
 
-        <List.Empty
-          message="No queue selected"
-          description="Select a queue to view jobs"
-          icon={Layers}
-        />
+        {!queryParams.queueName && (
+          <List.Message
+            message="No queue selected"
+            description="Select a queue to view jobs"
+            icon={Layers}
+          />
+        )}
 
-        <ListSkeleton />
+        {error && (
+          <List.Message message="Error to list jobs" description="Try again later" icon={Layers} />
+        )}
 
-        <List.Paginator
-            page={1}
-            totalPages={5}
-            total={92}
-            pageSize={20}
-            onChange={(p) => console.log(p)}
-        />
+        {isFetching && !data && <ListSkeleton />}
 
-        {/*{mockJobs.map((job) => {*/}
-        {/*  const config = statusConfig[job.status];*/}
-        {/*  const Icon = config.icon;*/}
-        {/*  const isExpanded = expandedId === job.id;*/}
+        {data ? (
+          <Fragment>
+            {!data.items.length && <List.Message message="No jobs to list" icon={Layers} />}
 
-        {/*  return (*/}
-        {/*    <List.Item key={job.id}>*/}
-        {/*      <div className="flex flex-col w-full gap-2">*/}
-        {/*        <div className="flex items-center gap-3 w-full">*/}
-        {/*          <Icon*/}
-        {/*            className={cn(*/}
-        {/*              "w-5 h-5 shrink-0",*/}
-        {/*              config.color,*/}
-        {/*              job.status === "active" && "animate-spin",*/}
-        {/*            )}*/}
-        {/*          />*/}
+            {data.items.map((job) => (
+              <List.Item key={job.id}>
+                <JobListItem job={job} />
+              </List.Item>
+            ))}
 
-        {/*          <div className="flex items-center gap-2 flex-1 min-w-0">*/}
-        {/*            <span className="text-sm font-medium text-foreground truncate">{job.name}</span>*/}
-        {/*          </div>*/}
-
-        {/*          <div className="flex items-center gap-3 shrink-0">*/}
-        {/*            /!*<JobProgress progress={job.progress} />*!/*/}
-
-        {/*            <span className="text-xs text-muted-foreground">{job.id}</span>*/}
-        {/*            /!*<span className="text-xs text-muted-foreground">{timeAgo(job.timestamp)}</span>*!/*/}
-
-        {/*            {job.status === "failed" && (*/}
-        {/*              <button className="text-muted-foreground hover:text-foreground transition-colors">*/}
-        {/*                <RotateCcw className="w-4 h-4" />*/}
-        {/*              </button>*/}
-        {/*            )}*/}
-
-        {/*            <button className="text-muted-foreground hover:text-foreground transition-colors">*/}
-        {/*              <MoreVertical className="w-4 h-4" />*/}
-        {/*            </button>*/}
-
-        {/*            <button*/}
-        {/*              onClick={() => setExpandedId(isExpanded ? null : job.id)}*/}
-        {/*              className="text-muted-foreground hover:text-foreground transition-colors"*/}
-        {/*            >*/}
-        {/*              <ChevronDown*/}
-        {/*                className={cn("w-4 h-4 transition-transform", isExpanded && "rotate-180")}*/}
-        {/*              />*/}
-        {/*            </button>*/}
-        {/*          </div>*/}
-        {/*        </div>*/}
-        {/*      </div>*/}
-        {/*    </List.Item>*/}
-        {/*  );*/}
-        {/*})}*/}
+            {!!data.items.length && (
+              <List.Paginator pagination={data.pagination} onChange={handlePageChange} />
+            )}
+          </Fragment>
+        ) : null}
       </List.Root>
     </section>
   );
