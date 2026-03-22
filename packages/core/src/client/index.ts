@@ -27,6 +27,10 @@ export class BullhubClient {
     return events;
   }
 
+  getQueues(): Queue[] {
+    return [...this.queues.values()];
+  }
+
   getQueueNames(): string[] {
     return [...this.queues.keys()];
   }

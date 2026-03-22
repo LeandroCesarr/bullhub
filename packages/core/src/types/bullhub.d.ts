@@ -1,6 +1,7 @@
 import type { ConnectionOptions } from "bullmq";
 import type { BullhubClient } from "@/client";
 import type { WorkerService } from "@/services/worker.service";
+import { JobService } from "../services/job.service";
 
 export type BullhubWorker = {
   id: string;
@@ -20,6 +21,7 @@ export interface BullhubContext {
   client: BullhubClient;
   services: {
     worker: WorkerService;
+    job: JobService;
   };
   routes: BullhubRoute[];
 }
@@ -32,4 +34,20 @@ export interface BullhubRoute {
     query: Record<string, string>,
     body: unknown,
   ) => Promise<unknown>;
+}
+
+interface Pagination<TData> {
+  items: TData[];
+  pagination: {
+    page: number;
+    pageSize: number;
+    total: number;
+    totalPages: number;
+  };
+}
+
+interface PaginateJobsParams {
+  page?: number;
+  status?: JobStateEnum;
+  queue: string;
 }
