@@ -1,17 +1,20 @@
-import { Hono } from 'hono'
-import { serve } from '@hono/node-server'
-import { registerBullhub } from '@bullhub/hono'
-import { showRoutes } from "hono/dev"
+import { Hono } from "hono";
+import { serve } from "@hono/node-server";
+import { registerBullhub } from "@bullhub/hono";
+import { showRoutes } from "hono/dev";
+import { cors } from "hono/cors";
 
-const app = new Hono()
+const app = new Hono();
 
-app.get('/health', (c) => c.json({ ok: true }))
+app.use("/*", cors());
+
+app.get("/health", (c) => c.json({ ok: true }));
 
 registerBullhub(app, {
-    queues: ['email-queue', 'notification-queue'],
-    connection: { host: 'localhost', port: 6379 },
-})
+  queues: ["email-queue", "notification-queue"],
+  connection: { host: "localhost", port: 6379 },
+});
 
-showRoutes(app)
+showRoutes(app);
 
-serve({ fetch: app.fetch, port: 3000 })
+serve({ fetch: app.fetch, port: 3000 });

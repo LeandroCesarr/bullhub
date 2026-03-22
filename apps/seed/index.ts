@@ -20,11 +20,9 @@ function createWorker(queueName: string, failRate = 0.1) {
   return new Worker(
     queueName,
     async (job) => {
-      // simula tempo de processamento
       const duration = Math.random() * 3000 + 500;
       await new Promise((r) => setTimeout(r, duration));
 
-      // simula falha baseado na taxa configurada
       if (Math.random() < failRate) {
         throw new Error(`Simulated failure on ${queueName} job ${job.id}`);
       }
@@ -34,6 +32,7 @@ function createWorker(queueName: string, failRate = 0.1) {
     {
       connection,
       concurrency: 3,
+      name: `worker-${queueName}`,
     },
   );
 }
@@ -124,7 +123,7 @@ async function main() {
   console.log("[seed] queues:", queues.map((q) => q.name).join(", "));
 }
 
-main().catch(console.error);
+// main().catch(console.error);
 
 // graceful shutdown
 process.on("SIGINT", async () => {
