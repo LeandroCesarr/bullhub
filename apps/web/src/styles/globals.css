@@ -1,0 +1,167 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ============================================
+   STYLEGUIDE - BullHub
+   ============================================
+
+   CORES BASE (oklch)
+   - Cinza escuro base: 0.13 0.01 260
+   - Cinza card: 0.18 0.01 260
+   - Cinza secundário: 0.25 0.01 260
+
+   STATUS
+   - Sucesso (verde-limão): 0.75 0.18 145
+   - Erro (rose): 0.65 0.2 25
+   - Aviso (amber): 0.80 0.15 85
+   - Info (cyan): 0.70 0.15 220
+   - Pendente (violet): 0.70 0.18 280
+
+   RADIUS
+   - sm: 0.5rem
+   - md: 0.75rem
+   - lg: 1rem
+   - xl: 1.25rem
+
+   ============================================ */
+
+:root {
+  /* Base */
+  --background: oklch(0.13 0.01 260);
+  --foreground: oklch(0.98 0 0);
+
+  /* Superfícies */
+  --card: oklch(0.18 0.01 260);
+  --popover: oklch(0.2 0.01 260);
+  --sidebar: oklch(0.15 0.01 260);
+
+  /* Marca */
+  --primary: oklch(0.85 0.18 130);
+  --primary-foreground: oklch(0.15 0 0);
+
+  /* Neutros */
+  --secondary: oklch(0.25 0.01 260);
+  --muted: oklch(0.22 0.01 260);
+  --accent: oklch(0.7 0.15 200);
+
+  /* Feedback */
+  --destructive: oklch(0.65 0.2 25);
+
+  /* Bordas e foco */
+  --border: oklch(0.28 0.01 260);
+  --input: oklch(0.22 0.01 260);
+  --ring: oklch(0.85 0.18 130);
+
+  /* Status */
+  --status-success: oklch(0.75 0.18 145);
+  --status-error: oklch(0.65 0.2 25);
+  --status-warning: oklch(0.8 0.15 85);
+  --status-info: oklch(0.7 0.15 220);
+  --status-pending: oklch(0.7 0.18 280);
+
+  /* Tipografia */
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Raio */
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: oklch(0.55 0 0);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--primary-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-status-success: var(--status-success);
+  --color-status-error: var(--status-error);
+  --color-status-warning: var(--status-warning);
+  --color-status-info: var(--status-info);
+  --color-status-pending: var(--status-pending);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--foreground);
+  --color-sidebar-primary: var(--primary);
+  --color-sidebar-primary-foreground: var(--primary-foreground);
+  --color-sidebar-accent: var(--muted);
+  --color-sidebar-accent-foreground: var(--foreground);
+  --color-sidebar-border: var(--border);
+  --color-sidebar-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 0.25rem);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 0.25rem);
+  --radius-xl: calc(var(--radius) + 0.5rem);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-mono;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: var(--radius);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-muted-foreground);
+  }
+}
+
+@layer utilities {
+  .card-gradient-success {
+    background: linear-gradient(135deg, oklch(0.75 0.18 145 / 0.15), oklch(0.7 0.15 180 / 0.1));
+  }
+  .card-gradient-error {
+    background: linear-gradient(135deg, oklch(0.65 0.2 25 / 0.15), oklch(0.6 0.18 350 / 0.1));
+  }
+  .card-gradient-warning {
+    background: linear-gradient(135deg, oklch(0.8 0.15 85 / 0.15), oklch(0.75 0.18 60 / 0.1));
+  }
+  .card-gradient-info {
+    background: linear-gradient(135deg, oklch(0.7 0.15 220 / 0.15), oklch(0.65 0.18 250 / 0.1));
+  }
+  .card-gradient-pending {
+    background: linear-gradient(135deg, oklch(0.7 0.18 280 / 0.15), oklch(0.65 0.2 300 / 0.1));
+  }
+}

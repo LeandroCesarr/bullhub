@@ -13,20 +13,30 @@
     "format:check": "oxfmt --check src"
   },
   "dependencies": {
-    "@bullhub/fmt": "workspace:*",
-    "@bullhub/lint": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@radix-ui/react-select": "^2.2.6",
+    "@tanstack/react-router": "^1.114.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.577.0",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
+    "@bullhub/fmt": "workspace:*",
+    "@bullhub/lint": "workspace:*",
+    "@bullhub/typescript-config": "workspace:*",
+    "@tailwindcss/vite": "catalog:",
+    "@tanstack/router-devtools": "^1.114.0",
+    "@tanstack/router-plugin": "^1.114.0",
     "@types/node": "^24.12.0",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "^6.0.1",
     "globals": "^17.4.0",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
+    "tailwindcss": "catalog:",
+    "tw-animate-css": "catalog:",
     "typescript": "~5.9.3",
     "vite": "catalog:",
     "vite-plus": "catalog:"
