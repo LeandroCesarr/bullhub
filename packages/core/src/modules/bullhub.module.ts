@@ -46,7 +46,7 @@ export function createBullhub(opts: BullhubOptions): BullhubContext {
         const result = await job.paginate({
           page: Math.max(1, Number(query.page ?? 1)),
           queue: params.queue,
-          status: query.status,
+          state: query.state,
         });
 
         return ApiResponse.ok(result);

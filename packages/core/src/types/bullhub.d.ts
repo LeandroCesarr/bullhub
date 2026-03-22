@@ -48,6 +48,6 @@ interface Pagination<TData> {
 
 interface PaginateJobsParams {
   page?: number;
-  status?: JobStateEnum;
+  state?: JobStateEnum;
   queue: string;
 }

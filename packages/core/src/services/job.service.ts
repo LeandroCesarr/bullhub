@@ -12,14 +12,14 @@ export class JobService {
 
   async paginate({
     page = 1,
-    status = JobStateEnum.COMPLETED,
+    state = JobStateEnum.COMPLETED,
     queue,
   }: PaginateJobsParams): Promise<Pagination<BullhubJob>> {
     const targetQueue = this.resolveQueue(queue);
 
     const [jobs, total] = await Promise.all([
-      this.fetchJobs(targetQueue, page, status),
-      this.countJobs(targetQueue, status),
+      this.fetchJobs(targetQueue, page, state),
+      this.countJobs(targetQueue, state),
     ]);
 
     const parsed = await Promise.all(jobs.map(BullhubJob.fromBullMQ));
@@ -49,14 +49,14 @@ export class JobService {
     return (page - 1) * DEFAULT_PAGE_SIZE;
   }
 
-  private async fetchJobs(queue: Queue, page: number, status?: JobStateEnum) {
+  private async fetchJobs(queue: Queue, page: number, state?: JobStateEnum) {
     const start = this.calculateOffset(page);
     const end = start + DEFAULT_PAGE_SIZE - 1;
-    return queue.getJobs([status as JobType], start, end, true);
+    return queue.getJobs([state as JobType], start, end, true);
   }
 
-  private async countJobs(queue: Queue, status?: JobStateEnum): Promise<number> {
-    const result = await queue.getJobCounts(status as JobType);
-    return result[status as JobType];
+  private async countJobs(queue: Queue, state?: JobStateEnum): Promise<number> {
+    const result = await queue.getJobCounts(state as JobType);
+    return result[state as JobType];
   }
 }
