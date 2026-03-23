@@ -1,10 +1,10 @@
 import type { FC } from "react";
-import type { BullhubJob } from "../../../../models/BullhubJob.ts";
-import { cn } from "../../../../utils/css.ts";
+import { cn } from "@/utils/css";
+import { timeAgo } from "@/utils/date";
 import { MoreVertical, RotateCcw } from "lucide-react";
-import { jobStateData, JobStateEnum } from "../../../../enums/jobStateEnum.ts";
-import { timeAgo } from "../../../../utils/date.ts";
-import { JobProgress } from "../../../JobProgress.tsx";
+import type { BullhubJob } from "@/models/BullhubJob";
+import { jobStateData, JobStateEnum } from "@/enums/jobStateEnum";
+import { JobProgress } from "@/components/JobProgress";
 
 interface IListItemProps {
   job: BullhubJob;

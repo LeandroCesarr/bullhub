@@ -1,8 +1,8 @@
 import type { FC } from "react";
 import { Layers, ChevronDown, Check, Loader } from "lucide-react";
 import * as Select from "@radix-ui/react-select";
-import { cn } from "../utils/css.ts";
-import { useQueues } from "../hooks/useQueues.ts";
+import { useQueues } from "@/hooks/useQueues";
+import { cn } from "@/utils/css";
 
 interface QueueSelectorProps {
   value?: string;

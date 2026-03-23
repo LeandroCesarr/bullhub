@@ -1,4 +1,4 @@
-import type { JobStateEnum } from "../enums/jobStateEnum.ts";
+import type { JobStateEnum } from "@/enums/jobStateEnum";
 
 export class BullhubJob {
   readonly id: string;

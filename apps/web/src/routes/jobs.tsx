@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { JobList } from "../components/sections/JobsList";
-import type { JobStateEnum } from "../enums/jobStateEnum.ts";
+import { JobList } from "@/components/sections/JobsList";
+import type { JobStateEnum } from "@/enums/jobStateEnum";
 
 const JobsPage: FC = () => {
   return <JobList />;

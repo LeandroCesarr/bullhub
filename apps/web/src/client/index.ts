@@ -1,6 +1,6 @@
 import { stringify } from "qs";
-import { HttpMethodEnum } from "../enums/httpMethodEnum.ts";
-import type { ApiResponse } from "../types";
+import { HttpMethodEnum } from "@/enums/httpMethodEnum";
+import type { ApiResponse } from "@/types";
 
 export class ApiClient {
   private static baseUrl = import.meta.env.VITE_API_URL ?? "http://localhost:3000";

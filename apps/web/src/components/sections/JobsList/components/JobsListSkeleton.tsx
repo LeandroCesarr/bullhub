@@ -1,6 +1,6 @@
-import { List } from "../../../List.tsx";
-import { Skeleton } from "../../../Skeleton.tsx";
 import { Fragment } from "react";
+import { List } from "@/components/List";
+import { Skeleton } from "@/components/Skeleton";
 
 const JOB_SKELETON_COUNT = 8;
 
@@ -24,7 +24,7 @@ const ItemSkeleton = () => (
   </List.Item>
 );
 
-export const ListSkeleton = () => (
+export const JobsListSkeleton = () => (
   <Fragment>
     {Array.from({ length: JOB_SKELETON_COUNT }).map((_, i) => (
       <ItemSkeleton key={i} />

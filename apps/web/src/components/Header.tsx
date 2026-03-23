@@ -1,8 +1,8 @@
 import type { FC } from "react";
-import { usePageTitle } from "../hooks/usePageTitle.ts";
 import { Search } from "lucide-react";
-import { Input } from "./Input.tsx";
-import { RefreshSelect } from "./RefreshSelect.tsx";
+import { Input } from "@/components/Input";
+import { usePageTitle } from "@/hooks/usePageTitle";
+import { RefreshSelect } from "@/components/RefreshSelect";
 
 export const Header: FC = () => {
   const title = usePageTitle();
@@ -21,24 +21,8 @@ export const Header: FC = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="relative">
-            <Input startIcon={Search} />
-          </div>
-
-          <div>
-            <RefreshSelect />
-          </div>
-
-          {/*<Button*/}
-          {/*    variant="outline"*/}
-          {/*    size="sm"*/}
-          {/*    onClick={handleRefresh}*/}
-          {/*    disabled={isRefreshing}*/}
-          {/*    className="gap-2"*/}
-          {/*>*/}
-          {/*  <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`}/>*/}
-          {/*  Atualizar*/}
-          {/*</Button>*/}
+          <Input startIcon={Search} />
+          <RefreshSelect />
         </div>
       </div>
     </header>

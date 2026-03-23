@@ -1,7 +1,7 @@
-import { cn } from "../utils/css.ts";
 import type { FC } from "react";
 import { RefreshCw, ChevronDown, Check } from "lucide-react";
 import * as Select from "@radix-ui/react-select";
+import { cn } from "@/utils/css";
 
 const intervals = [
   { label: "5s", value: 5000 },
@@ -26,7 +26,7 @@ export const RefreshSelect: FC<RefreshSelectProps> = ({ value, onChange }) => {
           "relative flex items-center gap-2 h-9 pl-9 pr-8 rounded-md border border-input bg-transparent text-sm outline-none cursor-pointer",
           "transition-[color,box-shadow]",
           "focus:border-ring focus:ring-ring/50 focus:ring-[3px]",
-          "data-[placeholder]:text-muted-foreground",
+          "data-placeholder:text-muted-foreground",
           value === 0 ? "text-muted-foreground" : "text-foreground",
         )}
       >
@@ -42,7 +42,7 @@ export const RefreshSelect: FC<RefreshSelectProps> = ({ value, onChange }) => {
           position="popper"
           sideOffset={4}
           className={cn(
-            "z-50 min-w-[var(--radix-select-trigger-width)] rounded-md border border-border bg-popover shadow-md",
+            "z-50 min-w-(--radix-select-trigger-width) rounded-md border border-border bg-popover shadow-md",
             "data-[state=open]:animate-in data-[state=closed]:animate-out",
             "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
             "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
@@ -56,7 +56,7 @@ export const RefreshSelect: FC<RefreshSelectProps> = ({ value, onChange }) => {
                 className={cn(
                   "relative flex items-center justify-between px-3 py-2 text-sm rounded-sm outline-none cursor-pointer select-none",
                   "text-muted-foreground transition-colors",
-                  "data-[highlighted]:bg-secondary data-[highlighted]:text-foreground",
+                  "data-highlighted:bg-secondary data-highlighted:text-foreground",
                   "data-[state=checked]:text-foreground",
                 )}
               >

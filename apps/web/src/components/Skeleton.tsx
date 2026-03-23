@@ -1,5 +1,5 @@
-import { cn } from "../utils/css.ts";
 import type { FC } from "react";
+import { cn } from "@/utils/css";
 
 interface SkeletonProps {
   className?: string;

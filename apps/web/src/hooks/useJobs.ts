@@ -1,10 +1,10 @@
+import { ApiClient } from "@/client";
 import { useQuery } from "@tanstack/react-query";
-import { ApiClient } from "../client";
-import { HttpMethodEnum } from "../enums/httpMethodEnum.ts";
-import type { BullhubJob } from "../models/BullhubJob.ts";
-import type { JobStateEnum } from "../enums/jobStateEnum.ts";
-import { sleep } from "../utils/sleep.ts";
-import type { PaginationResponse } from "../types";
+import { HttpMethodEnum } from "@/enums/httpMethodEnum";
+import type { BullhubJob } from "@/models/BullhubJob";
+import type { JobStateEnum } from "@/enums/jobStateEnum";
+import type { PaginationResponse } from "@/types";
+import { sleep } from "@/utils/sleep";
 
 interface IUseJobsProps {
   queueName?: string;

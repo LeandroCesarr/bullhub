@@ -1,7 +1,7 @@
+import { ApiClient } from "@/client";
 import { useQuery } from "@tanstack/react-query";
-import { ApiClient } from "../client";
-import { HttpMethodEnum } from "../enums/httpMethodEnum.ts";
-import type { BullhubQueue } from "../models/BullhubQueue.ts";
+import { HttpMethodEnum } from "@/enums/httpMethodEnum";
+import type { BullhubQueue } from "@/models/BullhubQueue";
 
 export function useQueues() {
   return useQuery<BullhubQueue[]>({

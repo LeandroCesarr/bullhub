@@ -1,6 +1,6 @@
 import type { FC, PropsWithChildren } from "react";
-import { Sidebar } from "../Sidebar.tsx";
-import { Header } from "../Header.tsx";
+import { Sidebar } from "@/components/Sidebar";
+import { Header } from "@/components/Header";
 
 export const DefaultLayout: FC<PropsWithChildren> = ({ children }) => {
   return (

@@ -1,14 +1,14 @@
 import { Fragment } from "react";
 import { Layers } from "lucide-react";
-import { List } from "../../List.tsx";
-import { QueueSelector } from "../../QueueSelector.tsx";
-import { JobStateSelector } from "../../JobStateSelector.tsx";
-import { ListSkeleton } from "./components/ListSkeleton.tsx";
-import { Route } from "../../../routes/jobs.tsx";
+import { List } from "@/components/List";
+import { QueueSelector } from "@/components/QueueSelector";
+import { JobStateSelector } from "@/components/JobStateSelector";
+import { Route } from "@/routes/jobs";
 import { useNavigate } from "@tanstack/react-router";
-import { useJobs } from "../../../hooks/useJobs.ts";
-import { JobListItem } from "./components/JobListItem.tsx";
-import type { JobStateEnum } from "../../../enums/jobStateEnum.ts";
+import { useJobs } from "@/hooks/useJobs";
+import type { JobStateEnum } from "@/enums/jobStateEnum";
+import { JobsListSkeleton } from "./components/JobsListSkeleton";
+import { JobListItem } from "./components/JobListItem";
 
 export function JobList() {
   const navigate = useNavigate({ from: Route.fullPath });
@@ -67,7 +67,7 @@ export function JobList() {
           <List.Message message="Error to list jobs" description="Try again later" icon={Layers} />
         )}
 
-        {isFetching && !data && <ListSkeleton />}
+        {isFetching && !data && <JobsListSkeleton />}
 
         {data ? (
           <Fragment>

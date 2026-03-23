@@ -1,7 +1,7 @@
-import { cn } from "../utils/css.ts";
 import type { FC, ReactNode } from "react";
 import { ChevronLeft, ChevronRight, type LucideIcon } from "lucide-react";
-import type { Pagination } from "../types";
+import type { Pagination } from "@/types";
+import { cn } from "@/utils/css";
 
 interface ListRootProps {
   children: ReactNode;

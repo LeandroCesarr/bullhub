@@ -1,8 +1,8 @@
 import type { FC } from "react";
 import { Check, ListFilter, ChevronDown } from "lucide-react";
 import * as Select from "@radix-ui/react-select";
-import { cn } from "../utils/css.ts";
-import { jobStateData, JobStateEnum } from "../enums/jobStateEnum.ts";
+import { cn } from "@/utils/css";
+import { jobStateData, JobStateEnum } from "@/enums/jobStateEnum";
 
 interface JobStateSelectorProps {
   value?: JobStateEnum;
@@ -19,7 +19,7 @@ export const JobStateSelector: FC<JobStateSelectorProps> = ({ value, onChange })
           "relative flex items-center gap-2 h-9 pl-9 pr-8 rounded-md border border-input bg-transparent text-sm text-foreground outline-none cursor-pointer",
           "transition-[color,box-shadow]",
           "focus:border-ring focus:ring-ring/50 focus:ring-[3px]",
-          "data-[placeholder]:text-muted-foreground",
+          "data-placeholder:text-muted-foreground",
         )}
       >
         <ListFilter className="absolute left-3 w-4 h-4 text-muted-foreground" />
@@ -34,7 +34,7 @@ export const JobStateSelector: FC<JobStateSelectorProps> = ({ value, onChange })
           position="popper"
           sideOffset={4}
           className={cn(
-            "z-50 min-w-[var(--radix-select-trigger-width)] rounded-md border border-border bg-popover shadow-md",
+            "z-50 min-w-(--radix-select-trigger-width) rounded-md border border-border bg-popover shadow-md",
             "data-[state=open]:animate-in data-[state=closed]:animate-out",
             "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
             "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
@@ -48,7 +48,7 @@ export const JobStateSelector: FC<JobStateSelectorProps> = ({ value, onChange })
               className={cn(
                 "relative flex items-center justify-between px-3 py-2 text-sm rounded-sm outline-none cursor-pointer select-none",
                 "text-muted-foreground transition-colors",
-                "data-[highlighted]:bg-secondary data-[highlighted]:text-foreground",
+                "data-[highlighted]:bg-secondary data-highlighted:text-foreground",
                 "data-[state=checked]:text-foreground",
               )}
             >
@@ -67,7 +67,7 @@ export const JobStateSelector: FC<JobStateSelectorProps> = ({ value, onChange })
                 className={cn(
                   "relative flex items-center justify-between px-3 py-2 text-sm rounded-sm outline-none cursor-pointer select-none",
                   "text-muted-foreground transition-colors",
-                  "data-[highlighted]:bg-secondary data-[highlighted]:text-foreground",
+                  "data-highlighted:bg-secondary data-highlighted:text-foreground",
                   "data-[state=checked]:text-foreground",
                 )}
               >
