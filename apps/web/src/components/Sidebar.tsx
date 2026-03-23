@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import type { FC } from "react";
 
 const items = [
-  { id: "dashboard", href: "/", icon: LayoutDashboard, label: "Dashboard" },
+  { id: "dashboard", href: Route, icon: LayoutDashboard, label: "Dashboard" },
   { id: "queues", href: "/queues", icon: Layers, label: "Queues" },
   { id: "jobs", href: "/jobs", icon: ListTodo, label: "Jobs" },
   { id: "scheduled", href: "/scheduled", icon: Clock, label: "Scheduled" },
