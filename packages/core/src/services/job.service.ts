@@ -52,11 +52,15 @@ export class JobService {
   private async fetchJobs(queue: Queue, page: number, state?: JobStateEnum) {
     const start = this.calculateOffset(page);
     const end = start + DEFAULT_PAGE_SIZE - 1;
-    return queue.getJobs([state as JobType], start, end, true);
+    const states = state ? [state as JobType] : undefined;
+
+    return queue.getJobs(states, start, end, false);
   }
 
   private async countJobs(queue: Queue, state?: JobStateEnum): Promise<number> {
-    const result = await queue.getJobCounts(state as JobType);
-    return result[state as JobType];
+    const states = state ? [state as JobType] : [];
+    const result = await queue.getJobCounts(...states);
+
+    return Object.values(result).reduce((acc, curr) => acc + curr, 0);
   }
 }
