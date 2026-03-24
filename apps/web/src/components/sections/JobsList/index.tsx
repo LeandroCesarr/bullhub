@@ -69,7 +69,7 @@ export function JobList() {
 
         {isFetching && !data && <JobsListSkeleton />}
 
-        {data ? (
+        {data && !error ? (
           <Fragment>
             {!data.items.length && <List.Message message="No jobs to list" icon={Layers} />}
 

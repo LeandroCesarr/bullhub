@@ -14,8 +14,6 @@ export const QueueSelector: FC<QueueSelectorProps> = ({ value, onChange }) => {
   const queues = data ?? [];
   const selected = queues.find((q) => q.name === value);
 
-  console.log(isFetching);
-
   return (
     <Select.Root value={String(value)} onValueChange={onChange}>
       <Select.Trigger
