@@ -1,0 +1,35 @@
+import type { FC, PropsWithChildren } from "react";
+import { tv } from "tailwind-variants";
+import { cn } from "@/utils/css.ts";
+
+const box = tv({
+  slots: {
+    root: "bg-card border border-border rounded-md p-5 flex flex-col gap-2",
+    title: "text-xs text-muted-foreground uppercase tracking-widest",
+    content: "text-sm text-foreground grow bg-red",
+  },
+});
+
+const Root: FC<PropsWithChildren> = ({ children }) => {
+  const { root } = box();
+
+  return <div className={root()}>{children}</div>;
+};
+
+const Title: FC<{ content: string }> = ({ content }) => {
+  const { title } = box();
+
+  return <div className={title()}>{content}</div>;
+};
+
+const Content: FC<PropsWithChildren<{ className?: string }>> = ({ children, className }) => {
+  const { content } = box();
+
+  return <div className={cn(content(), className)}>{children}</div>;
+};
+
+export const Box = {
+  Root,
+  Title,
+  Content,
+};

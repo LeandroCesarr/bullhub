@@ -14,7 +14,7 @@ interface IUseJobsProps {
 
 export function useJobs({ queueName, ...props }: IUseJobsProps) {
   return useQuery<PaginationResponse<BullhubJob>>({
-    // refetchInterval: 1000,
+    refetchInterval: 1000,
     enabled: !!queueName,
     queryKey: ["jobs", queueName, { queueName, ...props }],
     queryFn: async () => {

@@ -6,7 +6,7 @@ const JobsDetailsPage: FC = () => {
   return <JobDetails />;
 };
 
-export const Route = createFileRoute("/jobs/$jobId")({
+export const Route = createFileRoute("/jobs/$queueName/$jobId")({
   component: JobsDetailsPage,
   head: ({ params }) => ({
     meta: [{ title: `Bullhub | Job #${params.jobId}` }],

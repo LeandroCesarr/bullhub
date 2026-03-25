@@ -2,13 +2,22 @@ import type { Queue, JobType } from "bullmq";
 import { BullhubJob } from "../models/BullhubJob";
 import { JobStateEnum } from "../enums/JobStateEnum";
 import { NotFoundException } from "../exceptions/NotFoundException";
-import { PaginateJobsParams, Pagination } from "../types/bullhub";
+import type { PaginateJobsParams, Pagination } from "../types/bullhub";
 import type { BullhubClient } from "../client";
 
 const DEFAULT_PAGE_SIZE = 20;
 
 export class JobService {
   constructor(private readonly client: BullhubClient) {}
+
+  async fetch(queueName: string, id: string) : Promise<BullhubJob> {
+    const targetQueue = this.resolveQueue(queueName);
+    const job = await targetQueue.getJob(id);
+
+    if (!job) throw new NotFoundException("Job not found");
+
+    return await BullhubJob.fromBullMQ(job)
+  }
 
   async paginate({
     page = 1,

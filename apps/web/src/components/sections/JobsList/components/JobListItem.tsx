@@ -10,10 +10,11 @@ import { sleep } from "@/utils/sleep.ts";
 import { Link } from "@tanstack/react-router";
 
 interface IListItemProps {
+  queueName: string
   job: BullhubJob;
 }
 
-export const JobListItem: FC<IListItemProps> = ({ job }) => {
+export const JobListItem: FC<IListItemProps> = ({ job, queueName }) => {
   const [isPending, startTransition] = useTransition();
   const config = jobStateData[job.status];
   const Icon = config.icon;
@@ -43,8 +44,8 @@ export const JobListItem: FC<IListItemProps> = ({ job }) => {
         />
 
         <Link
-          to="/jobs/$jobId"
-          params={{ jobId: job.id }}
+          to="/jobs/$queueName/$jobId"
+          params={{ jobId: job.id, queueName }}
           className="flex items-center gap-2 flex-1 min-w-0"
         >
           <span className="text-sm font-medium text-foreground truncate">{job.name}</span>
@@ -54,7 +55,7 @@ export const JobListItem: FC<IListItemProps> = ({ job }) => {
           {job.status !== JobStateEnum.FAILED && <JobProgress progress={job.progress} />}
 
           <span className="text-xs text-muted-foreground">{job.id}</span>
-          <span className="text-xs text-muted-foreground">{timeAgo(job.timestamp)}</span>
+          <span className="text-xs text-muted-foreground">{timeAgo(job.createdAt)}</span>
 
           {job.status === JobStateEnum.FAILED && (
             <button

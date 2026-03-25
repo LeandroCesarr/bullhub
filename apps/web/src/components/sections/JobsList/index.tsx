@@ -75,7 +75,7 @@ export function JobList() {
 
             {data.items.map((job) => (
               <List.Item key={job.id}>
-                <JobListItem job={job} />
+                <JobListItem queueName={queryParams.queueName!} job={job} />
               </List.Item>
             ))}
 

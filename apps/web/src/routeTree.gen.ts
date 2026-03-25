@@ -11,7 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as JobsIndexRouteImport } from './routes/jobs/index'
-import { Route as JobsJobIdRouteImport } from './routes/jobs/$jobId'
+import { Route as JobsQueueNameJobIdRouteImport } from './routes/jobs/$queueName/$jobId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -23,40 +23,40 @@ const JobsIndexRoute = JobsIndexRouteImport.update({
   path: '/jobs/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const JobsJobIdRoute = JobsJobIdRouteImport.update({
-  id: '/jobs/$jobId',
-  path: '/jobs/$jobId',
+const JobsQueueNameJobIdRoute = JobsQueueNameJobIdRouteImport.update({
+  id: '/jobs/$queueName/$jobId',
+  path: '/jobs/$queueName/$jobId',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/jobs/$jobId': typeof JobsJobIdRoute
   '/jobs/': typeof JobsIndexRoute
+  '/jobs/$queueName/$jobId': typeof JobsQueueNameJobIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/jobs/$jobId': typeof JobsJobIdRoute
   '/jobs': typeof JobsIndexRoute
+  '/jobs/$queueName/$jobId': typeof JobsQueueNameJobIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/jobs/$jobId': typeof JobsJobIdRoute
   '/jobs/': typeof JobsIndexRoute
+  '/jobs/$queueName/$jobId': typeof JobsQueueNameJobIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/jobs/$jobId' | '/jobs/'
+  fullPaths: '/' | '/jobs/' | '/jobs/$queueName/$jobId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/jobs/$jobId' | '/jobs'
-  id: '__root__' | '/' | '/jobs/$jobId' | '/jobs/'
+  to: '/' | '/jobs' | '/jobs/$queueName/$jobId'
+  id: '__root__' | '/' | '/jobs/' | '/jobs/$queueName/$jobId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  JobsJobIdRoute: typeof JobsJobIdRoute
   JobsIndexRoute: typeof JobsIndexRoute
+  JobsQueueNameJobIdRoute: typeof JobsQueueNameJobIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,11 +75,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JobsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/jobs/$jobId': {
-      id: '/jobs/$jobId'
-      path: '/jobs/$jobId'
-      fullPath: '/jobs/$jobId'
-      preLoaderRoute: typeof JobsJobIdRouteImport
+    '/jobs/$queueName/$jobId': {
+      id: '/jobs/$queueName/$jobId'
+      path: '/jobs/$queueName/$jobId'
+      fullPath: '/jobs/$queueName/$jobId'
+      preLoaderRoute: typeof JobsQueueNameJobIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -87,8 +87,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  JobsJobIdRoute: JobsJobIdRoute,
   JobsIndexRoute: JobsIndexRoute,
+  JobsQueueNameJobIdRoute: JobsQueueNameJobIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

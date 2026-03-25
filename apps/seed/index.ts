@@ -31,7 +31,7 @@ function createWorker(queueName: string, failRate = 0.1) {
 
       return { processed: true };
     },
-    { connection, concurrency: 3 },
+    { connection, concurrency: 3, name: `worker:${queueName}` },
   );
 }
 
