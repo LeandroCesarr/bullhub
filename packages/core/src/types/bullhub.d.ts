@@ -1,7 +1,7 @@
 import type { ConnectionOptions } from "bullmq";
 import type { BullhubClient } from "@/client";
 import type { WorkerService } from "@/services/worker.service";
-import { JobService } from "../services/job.service";
+import type { JobService } from "../services/job.service";
 
 export type BullhubWorker = {
   id: string;
@@ -11,8 +11,13 @@ export type BullhubWorker = {
   startedAt: string;
 };
 
+export interface BullhubOptionsQueue {
+  name: string;
+  prefix?: string
+}
+
 export interface BullhubOptions {
-  queues: string[];
+  queues: BullhubOptionsQueue[];
   connection: ConnectionOptions;
   basePath?: string;
 }

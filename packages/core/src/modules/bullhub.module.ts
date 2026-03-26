@@ -7,7 +7,7 @@ import {QueueService} from "../services/queue.service";
 import type {BullhubContext, BullhubOptions, BullhubRoute} from "../types/bullhub";
 
 export function createBullhub(opts: BullhubOptions): BullhubContext {
-  const client = new BullhubClient(opts.queues, opts.connection);
+  const client = new BullhubClient(opts, opts.connection);
 
   const worker = new WorkerService(client);
   const queue = new QueueService(client);

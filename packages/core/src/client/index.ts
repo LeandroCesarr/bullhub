@@ -1,17 +1,21 @@
 import { Queue, QueueEvents } from "bullmq";
 import type { ConnectionOptions } from "bullmq";
+import { BullhubOptions } from "../types/bullhub";
 
 export class BullhubClient {
   readonly connection: ConnectionOptions;
   private queues = new Map<string, Queue>();
   private events = new Map<string, QueueEvents>();
 
-  constructor(queueNames: string[], connection: ConnectionOptions) {
+  constructor(opts: BullhubOptions, connection: ConnectionOptions) {
     this.connection = connection;
 
-    for (const name of queueNames) {
-      this.queues.set(name, new Queue(name, { connection }));
-      this.events.set(name, new QueueEvents(name, { connection }));
+    for (const queue of opts.queues) {
+      this.queues.set(queue.name, new Queue(queue.name, { connection, prefix: queue.prefix }));
+      this.events.set(
+        queue.name,
+        new QueueEvents(queue.name, { connection, prefix: queue.prefix }),
+      );
     }
   }
 
