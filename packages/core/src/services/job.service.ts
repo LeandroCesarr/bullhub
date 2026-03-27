@@ -1,29 +1,25 @@
 import type { Queue, JobType } from "bullmq";
 import { BullhubJob } from "../models/BullhubJob";
-import { JobStateEnum } from "../enums/JobStateEnum";
 import { NotFoundException } from "../exceptions/NotFoundException";
+import type { BullhubClient } from "../clients/bullmq.client";
+import type { JobStateEnum } from "../enums/JobStateEnum";
 import type { PaginateJobsParams, Pagination } from "../types/bullhub";
-import type { BullhubClient } from "../client";
 
 const DEFAULT_PAGE_SIZE = 20;
 
 export class JobService {
   constructor(private readonly client: BullhubClient) {}
 
-  async fetch(queueName: string, id: string) : Promise<BullhubJob> {
+  async fetch(queueName: string, id: string): Promise<BullhubJob> {
     const targetQueue = this.resolveQueue(queueName);
     const job = await targetQueue.getJob(id);
 
     if (!job) throw new NotFoundException("Job not found");
 
-    return await BullhubJob.fromBullMQ(job)
+    return await BullhubJob.fromBullMQ(job);
   }
 
-  async paginate({
-    page = 1,
-    state = JobStateEnum.COMPLETED,
-    queue,
-  }: PaginateJobsParams): Promise<Pagination<BullhubJob>> {
+  async paginate({ page = 1, queue, state }: PaginateJobsParams): Promise<Pagination<BullhubJob>> {
     const targetQueue = this.resolveQueue(queue);
 
     const [jobs, total] = await Promise.all([
@@ -63,7 +59,9 @@ export class JobService {
     const end = start + DEFAULT_PAGE_SIZE - 1;
     const states = state ? [state as JobType] : undefined;
 
-    return queue.getJobs(states, start, end, false);
+    const jobs = await queue.getJobs(states, start, end, false);
+
+    return jobs.filter((i) => !!i);
   }
 
   private async countJobs(queue: Queue, state?: JobStateEnum): Promise<number> {

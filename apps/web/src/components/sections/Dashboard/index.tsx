@@ -4,6 +4,7 @@ import {Activity, CheckCircle, Clock, RotateCcw, Server, TrendingUp, Users, XCir
 import {QueueSelector} from "@/components/QueueSelector.tsx";
 import {JobStateSelector} from "@/components/JobStateSelector.tsx";
 import {JobStateEnum} from "@/enums/jobStateEnum.ts";
+import { RedisInfo } from "@/components/RedisInfo";
 
 // ─── types ────────────────────────────────────────────────────────────────────
 
@@ -275,55 +276,6 @@ function QueuesCard() {
   )
 }
 
-// ─── redis card ───────────────────────────────────────────────────────────────
-
-const redisStats = [
-  { label: 'uptime', value: '2d 4h', className: 'text-primary' },
-  { label: 'clients', value: '12', className: '' },
-  { label: 'cmd/s', value: '1.4k', className: 'text-accent' },
-  { label: 'total cmd', value: '2.1M', className: '' },
-]
-
-function RedisCard() {
-  return (
-      <div className="bg-card border border-border rounded-radius-md p-4">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-1.5 text-sm font-medium">
-            <Server size={14} className="text-primary" />
-            redis
-          </div>
-          <span className="text-[11px] px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-          v7.2.4
-        </span>
-        </div>
-
-        <div className="grid grid-cols-2 gap-px bg-border rounded-md overflow-hidden mb-4">
-          {redisStats.map(item => (
-              <div key={item.label} className="bg-muted px-3 py-2.5">
-                <p className="text-[10px] text-muted-foreground uppercase tracking- widest mb-1">{item.label}</p>
-                <p className={`text-sm font-medium ${item.className}`}>{item.value}</p>
-              </div>
-          ))}
-        </div>
-
-        <div className="mb-3">
-          <div className="flex justify-between text-[11px] text-muted-foreground mb-1.5">
-            <span>memory</span>
-            <span>48.2 MB / 78.1 MB</span>
-          </div>
-          <div className="h-[3px] bg-border rounded-full overflow-hidden">
-            <div className="h-full bg-primary rounded-full" style={{ width: '62%' }} />
-          </div>
-        </div>
-
-        <div className="flex justify-between text-[11px] text-muted-foreground">
-          <span>172.19.0.2:6379</span>
-          <span className="text-accent">standalone</span>
-        </div>
-      </div>
-  )
-}
-
 // ─── dashboard page ───────────────────────────────────────────────────────────
 
 export function Dashboard() {
@@ -334,7 +286,7 @@ export function Dashboard() {
             <ActivityChart />
           </div>
           <OverviewCard />
-          <RedisCard />
+          <RedisInfo />
         </div>
 
         <StatCards />

@@ -1,17 +1,21 @@
-import type {ConnectionOptions} from "bullmq";
-import {BullhubClient} from "../client";
-import {ApiResponse} from "../http/ApiResponse";
-import {WorkerService} from "../services/worker.service";
-import {JobService} from "../services/job.service";
-import {QueueService} from "../services/queue.service";
-import type {BullhubContext, BullhubOptions, BullhubRoute} from "../types/bullhub";
+import type { ConnectionOptions } from "bullmq";
+import { BullhubClient } from "../clients/bullmq.client";
+import { ApiResponse } from "../http/ApiResponse";
+import { WorkerService } from "../services/worker.service";
+import { JobService } from "../services/job.service";
+import { QueueService } from "../services/queue.service";
+import { RedisClient } from "../clients/redis.client";
+import { RedisService } from "../services/redis.service";
+import type { BullhubContext, BullhubOptions, BullhubRoute } from "../types/bullhub";
 
 export function createBullhub(opts: BullhubOptions): BullhubContext {
-  const client = new BullhubClient(opts, opts.connection);
+  const redisClient = new RedisClient(opts);
+  const bullmqClient = new BullhubClient(opts);
 
-  const worker = new WorkerService(client);
-  const queue = new QueueService(client);
-  const job = new JobService(client);
+  const redis = new RedisService(redisClient);
+  const worker = new WorkerService(bullmqClient);
+  const queue = new QueueService(bullmqClient);
+  const job = new JobService(bullmqClient);
 
   const routes: BullhubRoute[] = [
     // workers
@@ -63,9 +67,22 @@ export function createBullhub(opts: BullhubOptions): BullhubContext {
     },
 
     //#endregion
+
+    //#region Redis
+
+    {
+      method: "GET",
+      path: "/api/redis",
+      handler: async () => {
+        const result = await redis.info();
+        return ApiResponse.ok(result);
+      },
+    },
+
+    //#endregion
   ];
 
-  return { client, services: { worker, job }, routes };
+  return { client: bullmqClient, services: { worker, job }, routes };
 }
 
 export { BullhubClient };

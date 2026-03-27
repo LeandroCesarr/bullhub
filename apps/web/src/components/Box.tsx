@@ -1,4 +1,4 @@
-import type { FC, PropsWithChildren } from "react";
+import type {FC, PropsWithChildren, ReactNode} from "react";
 import { tv } from "tailwind-variants";
 import { cn } from "@/utils/css.ts";
 
@@ -16,7 +16,7 @@ const Root: FC<PropsWithChildren> = ({ children }) => {
   return <div className={root()}>{children}</div>;
 };
 
-const Title: FC<{ content: string }> = ({ content }) => {
+const Title: FC<{ content: ReactNode }> = ({ content }) => {
   const { title } = box();
 
   return <div className={title()}>{content}</div>;

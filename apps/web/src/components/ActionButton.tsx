@@ -1,4 +1,4 @@
-import { tv } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants";
 import type { FC, MouseEventHandler } from "react";
 import type { LucideIcon } from "lucide-react";
 
@@ -17,9 +17,8 @@ const button = tv({
   },
 });
 
-interface ActionButtonProps {
+interface ActionButtonProps extends VariantProps<typeof button> {
   onClick: MouseEventHandler<HTMLButtonElement>;
-  theme?: "primary" | "foreground" | "error";
   icon: LucideIcon;
   label: string;
 }

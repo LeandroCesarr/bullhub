@@ -14,7 +14,8 @@
     "format:check": "oxfmt --check src"
   },
   "dependencies": {
-    "bullmq": "catalog:"
+    "bullmq": "catalog:",
+    "ioredis": "catalog:"
   },
   "devDependencies": {
     "@bullhub/fmt": "workspace:*",

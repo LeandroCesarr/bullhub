@@ -1,4 +1,4 @@
-import type { BullhubClient } from "../client";
+import type { BullhubClient } from "../clients/bullmq.client";
 import { BullhubQueue } from "../models/BullhubQueue";
 
 export class QueueService {

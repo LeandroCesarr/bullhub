@@ -1,5 +1,5 @@
 import type { ConnectionOptions } from "bullmq";
-import type { BullhubClient } from "@/client";
+import type { BullhubClient } from "@/clients";
 import type { WorkerService } from "@/services/worker.service";
 import type { JobService } from "../services/job.service";
 
