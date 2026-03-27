@@ -1,4 +1,5 @@
 import type { RedisOptions } from "ioredis";
+import {RedisInfo} from "../types/redis";
 
 interface RedisMemoryInfo {
   usedMemory: number;
@@ -8,12 +9,6 @@ interface RedisMemoryInfo {
   usedMemoryPeak: number;
   usedMemoryPeakHuman: string;
 }
-
-interface RedisStats {
-  opsPerSec: number;
-  totalCommands: number;
-}
-
 type RedisMode = "standalone" | "cluster" | "sentinel";
 
 interface RedisServerInfo {
@@ -22,17 +17,19 @@ interface RedisServerInfo {
   mode: RedisMode;
   startedAt: number;
   clients: number;
+  version: string;
 }
 
 export class BullhubRedis {
   private constructor(
       readonly memory: RedisMemoryInfo,
       readonly server: RedisServerInfo,
-      readonly stats: RedisStats,
   ) {}
 
   static fromRedis(raw: string, opts: RedisOptions): BullhubRedis {
     const parsed = this.parseInfo(raw);
+
+    console.log(parsed)
 
     return new BullhubRedis(
         {
@@ -51,11 +48,8 @@ export class BullhubRedis {
               Number(parsed.uptime_in_seconds ?? 0),
           ),
           clients: Number(parsed.connected_clients ?? 0),
-        },
-        {
-          opsPerSec: Number(parsed.instantaneous_ops_per_sec ?? 0),
-          totalCommands: Number(parsed.total_commands_processed ?? 0),
-        },
+          version: parsed.redis_version ?? "unknown",
+        }
     );
   }
 
@@ -67,7 +61,7 @@ export class BullhubRedis {
     return Date.now() - uptimeSeconds * 1000;
   }
 
-  private static parseInfo(info: string): Record<string, string> {
+  private static parseInfo(info: string): RedisInfo {
     const result: Record<string, string> = {};
 
     for (const line of info.split("\n")) {
@@ -79,6 +73,6 @@ export class BullhubRedis {
       }
     }
 
-    return result;
+    return result as unknown as RedisInfo;
   }
 }

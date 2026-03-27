@@ -7,11 +7,6 @@ interface RedisMemoryInfo {
   usedMemoryPeakHuman: string;
 }
 
-interface RedisStats {
-  opsPerSec: number;
-  totalCommands: number;
-}
-
 type RedisMode = "standalone" | "cluster" | "sentinel";
 
 interface RedisServerInfo {
@@ -20,10 +15,10 @@ interface RedisServerInfo {
   mode: RedisMode;
   startedAt: number;
   clients: number;
+  version: string;
 }
 
 export class BullhubRedis {
   readonly memory: RedisMemoryInfo;
   readonly server: RedisServerInfo;
-  readonly stats: RedisStats;
 }

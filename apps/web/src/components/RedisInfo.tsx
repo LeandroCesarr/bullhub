@@ -25,9 +25,7 @@ export const RedisInfo: FC = () => {
       value: formatEpocDuration(data.server.startedAt),
       className: "text-primary",
     },
-    { label: "clients", value: data.server.clients, className: "" },
-    { label: "cmd/s", value: data.stats.opsPerSec, className: "text-accent" },
-    { label: "total cmd", value: data.stats.totalCommands, className: "" },
+    { label: "clients", value: data.server.clients, className: "" }
   ];
 
   return (
@@ -42,7 +40,7 @@ export const RedisInfo: FC = () => {
                   redis
                 </div>
                 <span className="text-[11px] px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                  v7.2.4
+                  v{data.server.version}
                 </span>
               </div>
             }
