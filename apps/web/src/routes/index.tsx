@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Dashboard } from "@/components/sections/Dashboard";
 
 export const Route = createFileRoute("/")({
-  component: () => <div className="h-250">Home</div>,
+  component: Dashboard,
   head: () => ({
     meta: [{ title: "Bullhub | Dashboard" }],
   }),
