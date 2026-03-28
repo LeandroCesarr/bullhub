@@ -4,7 +4,7 @@ import { HttpMethodEnum } from "@/enums/httpMethodEnum";
 import type { BullhubJob } from "@/models/BullhubJob";
 import type { JobStateEnum } from "@/enums/jobStateEnum";
 import type { PaginationResponse } from "@/types";
-import { sleep } from "@/utils/sleep";
+import { useRefresh } from "@/hooks/useRefresh.ts";
 
 interface IUseJobsProps {
   queueName?: string;
@@ -13,13 +13,13 @@ interface IUseJobsProps {
 }
 
 export function useJobs({ queueName, ...props }: IUseJobsProps) {
+  const [refetchInterval] = useRefresh();
+
   return useQuery<PaginationResponse<BullhubJob>>({
-    refetchInterval: 1000,
+    refetchInterval,
     enabled: !!queueName,
     queryKey: ["jobs", queueName, { queueName, ...props }],
     queryFn: async () => {
-      await sleep(2000);
-
       const { data } = await ApiClient.request<PaginationResponse<BullhubJob>>(
         HttpMethodEnum.GET,
         `queues/${queueName}/jobs`,

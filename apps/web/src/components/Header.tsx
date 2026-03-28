@@ -1,6 +1,4 @@
 import type { FC } from "react";
-import { Search } from "lucide-react";
-import { Input } from "@/components/Input";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { RefreshSelect } from "@/components/RefreshSelect";
 
@@ -20,8 +18,7 @@ export const Header: FC = () => {
           <p className="text-sm text-muted-foreground">BullMQ Dashboard • {currentDate}</p>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Input startIcon={Search} />
+        <div className="flex items-center gap-3 min-w-24">
           <RefreshSelect />
         </div>
       </div>

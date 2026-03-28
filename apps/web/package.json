@@ -19,6 +19,7 @@
     "@tanstack/react-router": "^1.114.0",
     "@tanstack/react-router-devtools": "^1.166.10",
     "clsx": "^2.1.1",
+    "jotai": "^2.19.0",
     "lucide-react": "^0.577.0",
     "qs": "^6.15.0",
     "react": "catalog:",

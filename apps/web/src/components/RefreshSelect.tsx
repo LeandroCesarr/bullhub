@@ -2,8 +2,10 @@ import type { FC } from "react";
 import { RefreshCw, ChevronDown, Check } from "lucide-react";
 import * as Select from "@radix-ui/react-select";
 import { cn } from "@/utils/css";
+import { useRefresh } from "@/hooks/useRefresh.ts";
 
 const intervals = [
+  { label: "None", value: 0 },
   { label: "5s", value: 5000 },
   { label: "15s", value: 15000 },
   { label: "30s", value: 30000 },
@@ -11,19 +13,23 @@ const intervals = [
   { label: "5min", value: 300000 },
 ];
 
-interface RefreshSelectProps {
-  value?: number;
-  onChange?: (value: number) => void;
-}
-
-export const RefreshSelect: FC<RefreshSelectProps> = ({ value, onChange }) => {
+export const RefreshSelect: FC = () => {
+  const [value, setValue] = useRefresh();
   const selected = intervals.find((i) => i.value === value);
 
+  function handleChange(val: number) {
+    if (val > 0) {
+      setValue(Number(val));
+    } else {
+      setValue(false);
+    }
+  }
+
   return (
-    <Select.Root value={String(value)} onValueChange={(v) => onChange?.(Number(v))}>
+    <Select.Root value={String(value)} onValueChange={(v) => handleChange(v as any)}>
       <Select.Trigger
         className={cn(
-          "relative flex items-center gap-2 h-9 pl-9 pr-8 rounded-md border border-input bg-transparent text-sm outline-none cursor-pointer",
+          "w-full relative flex items-center gap-2 h-9 pl-9 pr-8 rounded-md border border-input bg-transparent text-sm outline-none cursor-pointer",
           "transition-[color,box-shadow]",
           "focus:border-ring focus:ring-ring/50 focus:ring-[3px]",
           "data-placeholder:text-muted-foreground",

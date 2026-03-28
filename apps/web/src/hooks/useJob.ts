@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { HttpMethodEnum } from "@/enums/httpMethodEnum";
 import type { BullhubJob } from "@/models/BullhubJob";
 import { sleep } from "@/utils/sleep";
+import {useRefresh} from "@/hooks/useRefresh.ts";
 
 interface IUseJobProps {
   queueName: string;
@@ -10,8 +11,10 @@ interface IUseJobProps {
 }
 
 export function useJob({ queueName, jobId }: IUseJobProps) {
+  const [refetchInterval] = useRefresh()
+
   return useQuery<BullhubJob>({
-    refetchInterval: 1000,
+    refetchInterval,
     enabled: !!queueName,
     queryKey: ["jobs", queueName, jobId],
     queryFn: async () => {

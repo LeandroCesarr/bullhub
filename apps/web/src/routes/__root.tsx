@@ -3,6 +3,7 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { DefaultLayout } from "@/components/layouts/DefaultLayout";
+import {RefreshIndicator} from "@/components/RefreshIndicator";
 import { Toaster } from "sonner";
 import { Fragment } from "react";
 
@@ -16,7 +17,7 @@ export const Route = createRootRoute({
         <DefaultLayout>
           <Outlet />
           <TanStackRouterDevtools />
-          <ReactQueryDevtools />
+          <ReactQueryDevtools buttonPosition="top-right" />
         </DefaultLayout>
         <Toaster
           position="bottom-right"
@@ -28,6 +29,7 @@ export const Route = createRootRoute({
             },
           }}
         />
+        <RefreshIndicator />
       </QueryClientProvider>
     </Fragment>
   ),
