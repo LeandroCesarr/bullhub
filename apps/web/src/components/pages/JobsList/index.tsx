@@ -1,14 +1,14 @@
 import { Fragment } from "react";
 import { Layers } from "lucide-react";
-import { List } from "@/components/List";
-import { QueueSelector } from "@/components/QueueSelector";
-import { JobStateSelector } from "@/components/JobStateSelector";
+import { List } from "@/components/List.tsx";
+import { QueueSelector } from "@/components/QueueSelector.tsx";
+import { JobStateSelector } from "@/components/JobStateSelector.tsx";
 import { Route } from "@/routes/jobs";
 import { useNavigate } from "@tanstack/react-router";
-import { useJobs } from "@/hooks/useJobs";
-import type { JobStateEnum } from "@/enums/jobStateEnum";
-import { JobsListSkeleton } from "./components/JobsListSkeleton";
-import { JobListItem } from "./components/JobListItem";
+import { useJobs } from "@/hooks/useJobs.ts";
+import type { JobStateEnum } from "@/enums/jobStateEnum.ts";
+import { JobsListSkeleton } from "./components/JobsListSkeleton.tsx";
+import { JobListItem } from "./components/JobListItem.tsx";
 
 export function JobList() {
   const navigate = useNavigate({ from: Route.fullPath });

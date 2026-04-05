@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import { List } from "@/components/List";
-import { Skeleton } from "@/components/Skeleton";
+import { List } from "@/components/List.tsx";
+import { Skeleton } from "@/components/Skeleton.tsx";
 
 const JOB_SKELETON_COUNT = 8;
 

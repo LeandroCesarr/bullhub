@@ -1,10 +1,10 @@
 import { type FC, useTransition } from "react";
-import { cn } from "@/utils/css";
-import { timeAgo } from "@/utils/date";
+import { cn } from "@/utils/css.ts";
+import { timeAgo } from "@/utils/date.ts";
 import { MoreVertical, RefreshCcw } from "lucide-react";
-import type { BullhubJob } from "@/models/BullhubJob";
-import { jobStateData, JobStateEnum } from "@/enums/jobStateEnum";
-import { JobProgress } from "@/components/JobProgress";
+import type { BullhubJob } from "@/models/BullhubJob.ts";
+import { jobStateData, JobStateEnum } from "@/enums/jobStateEnum.ts";
+import { JobProgress } from "@/components/JobProgress.tsx";
 import { toast } from "sonner";
 import { sleep } from "@/utils/sleep.ts";
 import { Link } from "@tanstack/react-router";

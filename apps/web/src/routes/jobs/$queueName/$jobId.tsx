@@ -1,13 +1,8 @@
-import type { FC } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { JobDetails } from "@/components/sections/JobDetails";
-
-const JobsDetailsPage: FC = () => {
-  return <JobDetails />;
-};
+import { JobDetails } from "@/components/pages/JobDetails";
 
 export const Route = createFileRoute("/jobs/$queueName/$jobId")({
-  component: JobsDetailsPage,
+  component: JobDetails,
   head: ({ params }) => ({
     meta: [{ title: `Bullhub | Job #${params.jobId}` }],
   }),
