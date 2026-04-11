@@ -29,8 +29,6 @@ export class BullhubRedis {
   static fromRedis(raw: string, opts: RedisOptions): BullhubRedis {
     const parsed = this.parseInfo(raw);
 
-    console.log(parsed)
-
     return new BullhubRedis(
         {
           usedMemory: Number(parsed.used_memory),

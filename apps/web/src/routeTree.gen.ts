@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WorkersRouteImport } from './routes/workers'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as JobsIndexRouteImport } from './routes/jobs/index'
 import { Route as JobsQueueNameJobIdRouteImport } from './routes/jobs/$queueName/$jobId'
 
+const WorkersRoute = WorkersRouteImport.update({
+  id: '/workers',
+  path: '/workers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,36 +37,47 @@ const JobsQueueNameJobIdRoute = JobsQueueNameJobIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/workers': typeof WorkersRoute
   '/jobs/': typeof JobsIndexRoute
   '/jobs/$queueName/$jobId': typeof JobsQueueNameJobIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/workers': typeof WorkersRoute
   '/jobs': typeof JobsIndexRoute
   '/jobs/$queueName/$jobId': typeof JobsQueueNameJobIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/workers': typeof WorkersRoute
   '/jobs/': typeof JobsIndexRoute
   '/jobs/$queueName/$jobId': typeof JobsQueueNameJobIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/jobs/' | '/jobs/$queueName/$jobId'
+  fullPaths: '/' | '/workers' | '/jobs/' | '/jobs/$queueName/$jobId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/jobs' | '/jobs/$queueName/$jobId'
-  id: '__root__' | '/' | '/jobs/' | '/jobs/$queueName/$jobId'
+  to: '/' | '/workers' | '/jobs' | '/jobs/$queueName/$jobId'
+  id: '__root__' | '/' | '/workers' | '/jobs/' | '/jobs/$queueName/$jobId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  WorkersRoute: typeof WorkersRoute
   JobsIndexRoute: typeof JobsIndexRoute
   JobsQueueNameJobIdRoute: typeof JobsQueueNameJobIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/workers': {
+      id: '/workers'
+      path: '/workers'
+      fullPath: '/workers'
+      preLoaderRoute: typeof WorkersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  WorkersRoute: WorkersRoute,
   JobsIndexRoute: JobsIndexRoute,
   JobsQueueNameJobIdRoute: JobsQueueNameJobIdRoute,
 }

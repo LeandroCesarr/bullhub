@@ -66,7 +66,9 @@ export class JobService {
 
   private async countJobs(queue: Queue, state?: JobStateEnum): Promise<number> {
     const states = state ? [state as JobType] : [];
-    const result = await queue.getJobCounts(...states);
+    const result = states.length
+        ? await queue.getJobCounts(...states)
+        : await queue.getJobCounts()
 
     return Object.values(result).reduce((acc, curr) => acc + curr, 0);
   }
