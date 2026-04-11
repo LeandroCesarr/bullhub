@@ -16,7 +16,7 @@ export function JobList() {
 
   const { data, error, isFetching } = useJobs(queryParams);
 
-  async function handleStateChange(state?: JobStateEnum) {
+  async function handleStateChange(state: JobStateEnum) {
     await navigate({
       search: {
         ...queryParams,

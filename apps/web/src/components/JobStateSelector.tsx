@@ -2,7 +2,8 @@ import type { FC } from "react";
 import { Check, ListFilter, ChevronDown } from "lucide-react";
 import * as Select from "@radix-ui/react-select";
 import { cn } from "@/utils/css";
-import { jobStateData, JobStateEnum } from "@/enums/jobStateEnum";
+import { jobStateData } from "@/enums/jobStateEnum";
+import type { JobStateEnum } from "@/enums/jobStateEnum";
 
 interface JobStateSelectorProps {
   value?: JobStateEnum;
@@ -42,23 +43,6 @@ export const JobStateSelector: FC<JobStateSelectorProps> = ({ value, onChange })
         >
           <Select.Viewport className="p-1">
             <div className="my-1 h-px bg-border" />
-
-            <Select.Item
-              value={undefined as any}
-              className={cn(
-                "relative flex items-center justify-between px-3 py-2 text-sm rounded-sm outline-none cursor-pointer select-none",
-                "text-muted-foreground transition-colors",
-                "data-[highlighted]:bg-secondary data-highlighted:text-foreground",
-                "data-[state=checked]:text-foreground",
-              )}
-            >
-              <Select.ItemText>All</Select.ItemText>
-              <div className="flex items-center gap-2">
-                <Select.ItemIndicator>
-                  <Check className="w-3.5 h-3.5 text-primary" />
-                </Select.ItemIndicator>
-              </div>
-            </Select.Item>
 
             {Object.entries(jobStateData).map(([state, data]) => (
               <Select.Item

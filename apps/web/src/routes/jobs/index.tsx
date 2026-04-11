@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { JobList } from "@/components/pages/JobsList";
-import type { JobStateEnum } from "@/enums/jobStateEnum.ts";
+import { JobStateEnum } from "@/enums/jobStateEnum.ts";
 
 type JobsSearch = {
   queueName?: string;
   page?: number;
-  state?: JobStateEnum;
+  state: JobStateEnum;
 };
 
 export const Route = createFileRoute("/jobs/")({
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/jobs/")({
     return {
       queueName: search.queueName as string,
       page: Number(search?.page ?? 1),
-      state: search.state as JobStateEnum,
+      state: search.state ? (search.state as JobStateEnum) : JobStateEnum.ACTIVE,
     };
   },
 });

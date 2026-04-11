@@ -4,7 +4,7 @@ import {
   Clock,
   GitBranch,
   HelpCircle,
-  Loader,
+  LoaderCircle,
   Timer,
   XCircle,
 } from "lucide-react";
@@ -32,7 +32,7 @@ export const jobStateData = {
     label: "Failed",
   },
   [JobStateEnum.ACTIVE]: {
-    icon: Loader,
+    icon: LoaderCircle,
     color: "text-status-info",
     label: "Active",
   },

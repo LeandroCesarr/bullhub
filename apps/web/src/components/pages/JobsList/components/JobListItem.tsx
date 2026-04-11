@@ -10,7 +10,7 @@ import { sleep } from "@/utils/sleep.ts";
 import { Link } from "@tanstack/react-router";
 
 interface IListItemProps {
-  queueName: string
+  queueName: string;
   job: BullhubJob;
 }
 
@@ -35,27 +35,28 @@ export const JobListItem: FC<IListItemProps> = ({ job, queueName }) => {
   return (
     <div className="flex flex-col w-full gap-2">
       <div className="flex items-center gap-3 w-full">
-        <Icon
-          className={cn(
-            "w-5 h-5 shrink-0",
-            config.color,
-            job.status === JobStateEnum.ACTIVE && "animate-spin",
-          )}
-        />
+        <div className="w-9 h-9 shrink-0 p-2 bg-secondary rounded-lg flex justify-center items-center">
+          <Icon
+            className={cn(config.color, job.status === JobStateEnum.ACTIVE && "animate-spin")}
+          />
+        </div>
 
         <Link
           to="/jobs/$queueName/$jobId"
           params={{ jobId: job.id, queueName }}
-          className="flex items-center gap-2 flex-1 min-w-0"
+          className="flex items-start flex-1 min-w-0 flex-col"
         >
           <span className="text-sm font-medium text-foreground truncate">{job.name}</span>
+
+          <div className="flex gap-2 text-xs text-muted-foreground">
+            <span className="">{job.id}</span>
+            {" • "}
+            <span className="">{timeAgo(job.createdAt)}</span>
+          </div>
         </Link>
 
         <div className="flex items-center gap-3 shrink-0">
           {job.status !== JobStateEnum.FAILED && <JobProgress progress={job.progress} />}
-
-          <span className="text-xs text-muted-foreground">{job.id}</span>
-          <span className="text-xs text-muted-foreground">{timeAgo(job.createdAt)}</span>
 
           {job.status === JobStateEnum.FAILED && (
             <button

@@ -9,7 +9,7 @@ import { useRefresh } from "@/hooks/useRefresh.ts";
 interface IUseJobsProps {
   queueName?: string;
   page?: number;
-  state?: JobStateEnum;
+  state: JobStateEnum;
 }
 
 export function useJobs({ queueName, ...props }: IUseJobsProps) {
@@ -17,7 +17,7 @@ export function useJobs({ queueName, ...props }: IUseJobsProps) {
 
   return useQuery<PaginationResponse<BullhubJob>>({
     refetchInterval,
-    enabled: !!queueName,
+    enabled: !!queueName && !!props.state,
     queryKey: ["jobs", queueName, { queueName, ...props }],
     queryFn: async () => {
       const { data } = await ApiClient.request<PaginationResponse<BullhubJob>>(
