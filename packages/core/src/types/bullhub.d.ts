@@ -20,6 +20,7 @@ export interface BullhubOptions {
   queues: BullhubOptionsQueue[];
   connection: ConnectionOptions;
   basePath?: string;
+  metricsCount?: number;
 }
 
 export interface BullhubContext {
@@ -55,4 +56,10 @@ interface PaginateJobsParams {
   page?: number;
   state?: JobStateEnum;
   queue: string;
+}
+
+interface ActivityMetric {
+  time: number;
+  completed: number
+  failed: number
 }

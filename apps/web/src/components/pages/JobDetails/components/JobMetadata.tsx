@@ -7,7 +7,7 @@ interface IJobMetadata {
 export const JobMetadata: FC<PropsWithChildren<IJobMetadata>> = ({ label, children }) => {
   return (
     <div className="flex flex-col gap-1">
-      <span className="text-[11px] text-muted-foreground uppercase tracking-widest">{label}</span>
+      <span className="text-xs text-muted-foreground uppercase tracking-widest">{label}</span>
       <div className="text-sm text-foreground">{children}</div>
     </div>
   );

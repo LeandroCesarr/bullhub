@@ -1,17 +1,21 @@
 const MINUTE = 60;
 const HOUR = MINUTE * 60;
 
+export function epocToHours(epochMs: number) {
+  return new Date(epochMs).toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+}
 
-export function epochToDuration(
-    epochMs: number,
-    nowMs: number = Date.now(),
-) {
+export function epochToDuration(epochMs: number, nowMs: number = Date.now()) {
   if (!Number.isFinite(epochMs) || epochMs < 0) {
-    throw new Error('Invalid epoch');
+    throw new Error("Invalid epoch");
   }
 
   if (!Number.isFinite(nowMs) || nowMs < epochMs) {
-    throw new Error('Invalid reference time');
+    throw new Error("Invalid reference time");
   }
 
   const totalSeconds = Math.floor((nowMs - epochMs) / 1000);
@@ -32,7 +36,7 @@ export function formatDurationRaw(d: ReturnType<typeof epochToDuration>): string
   if (d.minutes) parts.push(`${d.minutes}m`);
   if (d.seconds) parts.push(`${d.seconds}s`);
 
-  return parts.join(' ') || '0s';
+  return parts.join(" ") || "0s";
 }
 
 export function format(value: string | number): string {
@@ -47,7 +51,7 @@ export function format(value: string | number): string {
 }
 
 export function formatEpocDuration(value: number): string {
-  return formatDurationRaw(epochToDuration(value))
+  return formatDurationRaw(epochToDuration(value));
 }
 
 export function formatDuration(ms: number): string {
@@ -67,4 +71,4 @@ export const date = {
   format,
   timeAgo,
   duration: formatDuration,
-}
+};

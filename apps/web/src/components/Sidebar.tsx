@@ -4,10 +4,10 @@ import type { FC } from "react";
 
 const items = [
   { id: "dashboard", href: "/", icon: LayoutDashboard, label: "Dashboard" },
-  { id: "queues", href: "/queues", icon: Layers, label: "Queues" },
+  // { id: "queues", href: "/queues", icon: Layers, label: "Queues" },
   { id: "jobs", href: "/jobs", icon: ListTodo, label: "Jobs" },
-  { id: "scheduled", href: "/scheduled", icon: Clock, label: "Scheduled" },
-  { id: "workers", href: "/workers", icon: Users, label: "Workers" },
+  // { id: "scheduled", href: "/scheduled", icon: Clock, label: "Scheduled" },
+  // { id: "workers", href: "/workers", icon: Users, label: "Workers" },
 ];
 
 interface ISidebarProps {

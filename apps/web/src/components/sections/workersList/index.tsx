@@ -125,7 +125,7 @@ function WorkerCard({ worker }: { worker: MockWorker }) {
               }`}
             />
           </div>
-          <span className="text-[11px] text-muted-foreground">{worker.queue}</span>
+          <span className="text-xs text-muted-foreground">{worker.queue}</span>
         </div>
       </div>
 
@@ -148,7 +148,7 @@ function WorkerCard({ worker }: { worker: MockWorker }) {
       </div>
 
       {worker.currentJob && (
-        <div className="pt-2 border-t border-border text-[11px] text-muted-foreground">
+        <div className="pt-2 border-t border-border text-xs text-muted-foreground">
           Processando: <span className="text-foreground font-medium">{worker.currentJob}</span>
         </div>
       )}

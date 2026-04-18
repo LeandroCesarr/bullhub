@@ -4,7 +4,7 @@ import { cn } from "@/utils/css.ts";
 
 const box = tv({
   slots: {
-    root: "bg-card border border-border rounded-md p-5 flex flex-col gap-2",
+    root: "bg-card border border-border rounded-md p-5 flex flex-col gap-2 w-full",
     title: "text-xs text-muted-foreground uppercase tracking-widest",
     content: "text-sm text-foreground grow bg-red",
   },
@@ -13,13 +13,13 @@ const box = tv({
 const Root: FC<PropsWithChildren> = ({ children }) => {
   const { root } = box();
 
-  return <div className={root()}>{children}</div>;
+  return <section className={root()}>{children}</section>;
 };
 
 const Title: FC<{ content: ReactNode }> = ({ content }) => {
   const { title } = box();
 
-  return <div className={title()}>{content}</div>;
+  return <h2 className={title()}>{content}</h2>;
 };
 
 const Content: FC<PropsWithChildren<{ className?: string }>> = ({ children, className }) => {

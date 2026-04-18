@@ -15,3 +15,9 @@ export type PaginationResponse<T> = {
   items: T[];
   pagination: Pagination;
 };
+
+export interface ActivityMetric {
+  time: number;
+  completed: number
+  failed: number
+}

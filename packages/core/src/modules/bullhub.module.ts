@@ -14,7 +14,7 @@ export function createBullhub(opts: BullhubOptions): BullhubContext {
 
   const redis = new RedisService(redisClient);
   const worker = new WorkerService(bullmqClient);
-  const queue = new QueueService(bullmqClient);
+  const queue = new QueueService(opts, bullmqClient);
   const job = new JobService(bullmqClient);
 
   const routes: BullhubRoute[] = [
@@ -41,9 +41,9 @@ export function createBullhub(opts: BullhubOptions): BullhubContext {
 
     {
       method: "GET",
-      path: "/api/queues/:queue/jobs/:id",
-      handler: async (params) => {
-        const result = await job.fetch(params.queue, params.id);
+      path: "/api/queues/activityMetricsChart",
+      handler: async () => {
+        const result = await queue.getAggregateActivityMetrics();
         return ApiResponse.ok(result);
       },
     },
@@ -62,6 +62,15 @@ export function createBullhub(opts: BullhubOptions): BullhubContext {
           state: query.state,
         });
 
+        return ApiResponse.ok(result);
+      },
+    },
+
+    {
+      method: "GET",
+      path: "/api/queues/:queue/jobs/:id",
+      handler: async (params) => {
+        const result = await job.fetch(params.queue, params.id);
         return ApiResponse.ok(result);
       },
     },

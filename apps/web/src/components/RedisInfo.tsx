@@ -39,7 +39,7 @@ export const RedisInfo: FC = () => {
                   <Server className="text-primary h-4 w-4" />
                   redis
                 </div>
-                <span className="text-[11px] px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
+                <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
                   v{data.server.version}
                 </span>
               </div>
@@ -53,7 +53,7 @@ export const RedisInfo: FC = () => {
             </div>
 
             <div className="mb-3">
-              <div className="flex justify-between text-[11px] text-muted-foreground mb-1.5">
+              <div className="flex justify-between text-xs text-muted-foreground mb-1.5">
                 <span>memory</span>
                 <span>
                   {data.memory.usedMemoryHuman} / {data.memory.totalSystemMemoryHuman}
@@ -69,7 +69,7 @@ export const RedisInfo: FC = () => {
               </div>
             </div>
 
-            <div className="flex justify-between text-[11px] text-muted-foreground">
+            <div className="flex justify-between text-xs text-muted-foreground">
               <span>{data.server.host}</span>
               <span className="text-accent">{data.server.mode}</span>
             </div>

@@ -22,7 +22,7 @@ export const QueuesListItem: FC<{ queue: BullhubQueue }> = ({ queue }) => {
         <span className={cn("w-1.5 h-1.5 rounded-full shrink-0", indicatorMap[indicator])} />
         <span className="text-xs font-medium">{queue.name}</span>
       </div>
-      <div className="flex gap-3 text-[11px] mb-1.5">
+      <div className="flex gap-3 text-xs mb-1.5">
         <span className="text-status-success">{aggregateJobs.completed} ok</span>
         <span className="text-status-warning">{aggregateJobs.pending} pend</span>
         <span className="text-status-error">{aggregateJobs.failed} fail</span>
