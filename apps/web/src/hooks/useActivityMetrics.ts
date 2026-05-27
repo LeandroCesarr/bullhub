@@ -14,7 +14,7 @@ export function useActivityMetrics() {
     queryFn: async () => {
       const { data } = await ApiClient.request<ActivityMetric[]>(
         HttpMethodEnum.GET,
-        "queues/activityMetricsChart",
+        "queues/metrics",
       );
       return data;
     },

@@ -57,13 +57,19 @@ export const JobDetails: FC = () => {
                 <h1 className="text-xl font-semibold tracking-tight">{job.name}</h1>
                 <StatusBadge status={job.status} />
               </div>
-              <p className="text-[11px] text-muted-foreground">
+              <p className="text-xs text-muted-foreground">
                 #{job.id} &nbsp;·&nbsp; {job.queueName} &nbsp;·&nbsp; {job.processedBy}
               </p>
             </div>
 
             <div className="flex gap-2 flex-wrap">
-              <ActionButton icon={RotateCcw} onClick={handleRetry} label="retry" theme="primary" />
+              <ActionButton
+                icon={RotateCcw}
+                onClick={handleRetry}
+                label="retry"
+                theme="primary"
+                iconClassName="group-hover:rotate-[-270deg] transition-transform duration-300"
+              />
               <ActionButton
                 onClick={handleRequeue}
                 icon={Clock}

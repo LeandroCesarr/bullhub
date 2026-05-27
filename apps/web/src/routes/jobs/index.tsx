@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { JobList } from "@/components/pages/JobsList";
 import { JobStateEnum } from "@/enums/jobStateEnum.ts";
+import { JobsListPage } from "@/components/pages/JobsList";
 
 type JobsSearch = {
   queueName?: string;
@@ -9,7 +9,7 @@ type JobsSearch = {
 };
 
 export const Route = createFileRoute("/jobs/")({
-  component: JobList,
+  component: JobsListPage,
   head: () => ({
     meta: [{ title: "Bullhub | Jobs" }],
   }),

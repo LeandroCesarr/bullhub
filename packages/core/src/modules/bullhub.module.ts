@@ -41,7 +41,7 @@ export function createBullhub(opts: BullhubOptions): BullhubContext {
 
     {
       method: "GET",
-      path: "/api/queues/activityMetricsChart",
+      path: "/api/queues/metrics",
       handler: async () => {
         const result = await queue.getAggregateActivityMetrics();
         return ApiResponse.ok(result);

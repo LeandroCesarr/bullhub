@@ -9,7 +9,7 @@ import { useRefresh } from "@/hooks/useRefresh.ts";
 interface IUseJobsProps {
   queueName?: string;
   page?: number;
-  state: JobStateEnum;
+  state?: JobStateEnum;
 }
 
 export function useJobs({ queueName, ...props }: IUseJobsProps) {

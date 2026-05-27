@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Activity, CheckCircle, Clock, RotateCcw, TrendingUp, Users, XCircle } from "lucide-react";
 import { QueueSelector } from "@/components/QueueSelector.tsx";
 import { JobStateSelector } from "@/components/JobStateSelector.tsx";
@@ -6,77 +6,10 @@ import { JobStateEnum } from "@/enums/jobStateEnum.ts";
 import { RedisInfo } from "@/components/RedisInfo.tsx";
 import { QueuesList } from "@/components/sections/queuesList";
 import { ActivityMetricsChart } from "@/components/sections/activityMetricsChart";
-
-// ─── types ────────────────────────────────────────────────────────────────────
-
-type MockJob = {
-  id: string;
-  name: string;
-  queue: string;
-  status: string;
-  time: string;
-};
+import { useQueues } from "@/hooks/useQueues.ts";
+import { JobsList, type JobsListSearchProps } from "@/components/sections/jobsList";
 
 // ─── mock data ────────────────────────────────────────────────────────────────
-
-const mockJobs: MockJob[] = [
-  {
-    id: "job-001",
-    name: "send-welcome-email",
-    queue: "email-queue",
-    status: "completed",
-    time: "5m ago",
-  },
-  {
-    id: "job-002",
-    name: "send-notification",
-    queue: "notification-queue",
-    status: "active",
-    time: "1m ago",
-  },
-  {
-    id: "job-003",
-    name: "generate-report",
-    queue: "report-generation",
-    status: "failed",
-    time: "10m ago",
-  },
-  {
-    id: "job-004",
-    name: "process-image",
-    queue: "image-processing",
-    status: "waiting",
-    time: "now",
-  },
-  {
-    id: "job-005",
-    name: "send-invoice-email",
-    queue: "email-queue",
-    status: "failed",
-    time: "15m ago",
-  },
-  {
-    id: "job-006",
-    name: "send-digest-email",
-    queue: "email-queue",
-    status: "delayed",
-    time: "30m ago",
-  },
-  {
-    id: "job-007",
-    name: "push-notification",
-    queue: "notification-queue",
-    status: "completed",
-    time: "2m ago",
-  },
-  {
-    id: "job-008",
-    name: "export-csv",
-    queue: "report-generation",
-    status: "completed",
-    time: "8m ago",
-  },
-];
 
 const statusDot: Record<string, string> = {
   completed: "bg-status-success",
@@ -218,43 +151,30 @@ function StatCards() {
 // ─── recent jobs card ─────────────────────────────────────────────────────────
 
 function RecentJobsCard() {
+  const { data } = useQueues();
+  const [activeQueue, setActiveQueue] = useState("");
   const [activeTab, setActiveTab] = useState<JobStateEnum>(JobStateEnum.ACTIVE);
 
-  return (
-    <div className="bg-card border border-border rounded-radius-md p-5">
-      <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-        <p className="text-sm font-medium">recent jobs</p>
-        <div className="flex items-center gap-2 flex-wrap">
-          <QueueSelector />
-          <JobStateSelector value={activeTab} onChange={setActiveTab} />
-        </div>
-      </div>
+  function handleSearchChange(search: JobsListSearchProps) {
+    setActiveQueue(search.queueName ?? "");
+    setActiveTab(search.state);
+  }
 
-      {mockJobs.length === 0 ? (
-        <p className="text-center text-muted-foreground text-xs py-8">no jobs found</p>
-      ) : (
-        <div>
-          {mockJobs.map((job) => (
-            <div
-              key={job.id}
-              className="flex items-center gap-2.5 py-2.5 border-b border-border last:border-none hover:bg-muted/50 rounded px-1 cursor-pointer transition-colors"
-            >
-              <span className={`w-2 h-2 rounded-full shrink-0 ${statusDot[job.status]}`} />
-              <div className="flex-1 min-w-0">
-                <div className="text-xs font-medium truncate">
-                  {job.name}
-                  <span className="ml-1.5 text-[10px] px-1.5 py-0.5 rounded-full bg-muted text-muted-foreground border border-border">
-                    {job.queue}
-                  </span>
-                </div>
-                <div className="text-xs text-muted-foreground mt-0.5">{job.id}</div>
-              </div>
-              <span className="text-xs text-muted-foreground shrink-0">{job.time}</span>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+  useEffect(() => {
+    if (data && !activeQueue) {
+      setActiveQueue(data[0].name);
+    }
+  }, [data]);
+
+  return (
+    <JobsList
+      className="col-span-3"
+      search={{
+        state: activeTab,
+        queueName: activeQueue,
+      }}
+      onChange={handleSearchChange}
+    />
   );
 }
 
@@ -262,21 +182,20 @@ function RecentJobsCard() {
 
 export function Dashboard() {
   return (
-    <div className="p-6 bg-background min-h-screen text-foreground font-mono flex flex-col gap-4">
+    <div className="p-6 bg-background text-foreground font-mono flex flex-col gap-4">
       <div className="grid grid-cols-4 gap-4">
-        <div className="col-span-2 flex items-stretch justify-stretch">
+        <div className="col-span-3 flex items-stretch justify-stretch min-h-96">
           <ActivityMetricsChart />
         </div>
-        <OverviewCard />
+        {/*<OverviewCard />*/}
         <RedisInfo />
       </div>
 
-      <StatCards />
+      {/*<StatCards />*/}
 
-      <div className="grid grid-cols-4 gap-4">
-        <div className="col-span-3">
-          <RecentJobsCard />
-        </div>
+      <div className="grid grid-cols-4 gap-4 items-stretch justify-stretch">
+        <RecentJobsCard />
+
         <QueuesList />
       </div>
     </div>
