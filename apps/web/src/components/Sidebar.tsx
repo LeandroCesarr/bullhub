@@ -1,6 +1,7 @@
-import { Clock, Layers, LayoutDashboard, ListTodo, type LucideIcon, Users } from "lucide-react";
+import { LayoutDashboard, ListTodo, type LucideIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import type { FC } from "react";
+import Logo from '@/assets/logo.svg'
 
 const items = [
   { id: "dashboard", href: "/", icon: LayoutDashboard, label: "Dashboard" },
@@ -47,8 +48,10 @@ export function Sidebar() {
   return (
     <aside className="px-4 py-6 bg-card flex flex-col items-center gap-2 border-r border-border">
       <div className="mb-8">
-        <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-          <span className="text-primary-foreground font-bold text-lg">B</span>
+        <div className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-200 group relative bg-primary">
+          <span className="text-primary-foreground font-bold text-lg">
+            <img src={Logo} className="w-7 h-7" alt="Bullhub"  />
+          </span>
         </div>
       </div>
 
