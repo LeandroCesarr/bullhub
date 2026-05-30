@@ -3,4 +3,7 @@ import base from "@bullhub/lint";
 
 export default defineConfig({
   extends: [base],
+  env: {
+    node: true,
+  }
 });

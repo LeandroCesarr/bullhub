@@ -17,7 +17,7 @@ export class ApiClient {
       url += `?${stringify(query)}`;
     }
 
-    const res = await fetch(new URL(url), {
+    const res = await fetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
       body: body ? JSON.stringify(body) : undefined,

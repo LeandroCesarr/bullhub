@@ -1,4 +1,32 @@
 services:
+  bullhub:
+    image: bullhub/standalone:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bullhub
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: production
+
+      REDIS_HOST: host.docker.internal
+      REDIS_PORT: 6379
+
+      BULLMQ_QUEUES_JSON: >
+        [
+          {"name":"email-queue","prefix":"bullhub"},
+          {"name":"notification-queue","prefix":"bullhub"},
+          {"name":"report-generation","prefix":"bullhub"},
+          {"name":"image-processing","prefix":"bullhub"},
+          {"name":"webhook-delivery","prefix":"bullhub"}
+        ]
+
+    depends_on:
+      - redis
+
+    restart: unless-stopped
+
   redis:
     image: redis:7-alpine
     container_name: bullhub-redis

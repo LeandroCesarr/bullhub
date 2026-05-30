@@ -4,8 +4,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "start": "tsx src/index.ts",
+    "build": "tsdown",
+    "dev": "tsx watch --env-file=.env src/index.ts",
+    "start": "node build/index.js",
     "lint": "oxlint src",
     "lint:fix": "oxlint --fix src",
     "format": "oxfmt src",
@@ -17,11 +18,12 @@
     "hono": "catalog:"
   },
   "devDependencies": {
-    "@bullhub/lint": "workspace:*",
     "@bullhub/fmt": "workspace:*",
-    "tsx": "catalog:",
-    "typescript": "catalog:",
+    "@bullhub/lint": "workspace:*",
     "oxfmt": "catalog:",
-    "oxlint": "catalog:"
+    "oxlint": "catalog:",
+    "tsdown": "^0.22.0",
+    "tsx": "catalog:",
+    "typescript": "catalog:"
   }
 }
