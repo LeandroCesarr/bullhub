@@ -21,7 +21,7 @@ function createWorker(queueName: string, failRate = 0.1) {
       const steps = Math.floor(Math.random() * 5) + 3;
 
       for (let i = 1; i <= steps; i++) {
-        await new Promise((r) => setTimeout(r, Math.random() * 800 + 200));
+        await new Promise((r) => setTimeout(r, 5000));
         await job.updateProgress(Math.floor((i / steps) * 100));
       }
 
