@@ -84,6 +84,24 @@ export function createBullhub(opts: BullhubOptions): BullhubContext {
       },
     },
 
+    {
+      method: "DELETE",
+      path: "/api/queues/:queue/jobs/:id",
+      handler: async (params) => {
+        await job.cancel(params.queue, params.id);
+        return ApiResponse.noContent();
+      },
+    },
+
+    {
+      method: "POST",
+      path: "/api/queues/:queue/jobs/:id/promote",
+      handler: async (params) => {
+        await job.promote(params.queue, params.id);
+        return ApiResponse.noContent();
+      },
+    },
+
     //#endregion
 
     //#region Redis
