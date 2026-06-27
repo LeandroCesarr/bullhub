@@ -1,4 +1,12 @@
-import type { JobStateEnum } from "@/enums/jobStateEnum";
+import { JobStateEnum } from "@/enums/jobStateEnum";
+
+export type JobActionType = "retry" | "promote" | "cancel";
+
+const ACTION_STATES: Record<JobActionType, Set<JobStateEnum>> = {
+  retry: new Set([JobStateEnum.FAILED, JobStateEnum.COMPLETED]),
+  promote: new Set([JobStateEnum.DELAYED]),
+  cancel: new Set([JobStateEnum.WAITING, JobStateEnum.DELAYED, JobStateEnum.ACTIVE, JobStateEnum.WAITING_CHILDREN]),
+};
 
 export class BullhubJob {
   readonly id: string;
@@ -17,8 +25,13 @@ export class BullhubJob {
   readonly delay: number | undefined;
   readonly processedBy: string | undefined;
   readonly stacktrace: string[];
-  readonly backoff: {
-    type: string;
-    delay: number | null;
-  };
+  readonly backoff: { type: string; delay: number | null };
+
+  static from(raw: unknown): BullhubJob {
+    return Object.assign(Object.create(BullhubJob.prototype), raw);
+  }
+
+  can(action: JobActionType): boolean {
+    return ACTION_STATES[action].has(this.status);
+  }
 }
