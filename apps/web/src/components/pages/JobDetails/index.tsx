@@ -4,6 +4,7 @@ import { Stacktrace } from "@/components/Stacktrace.tsx";
 import { JsonViewer } from "@/components/JsonViewer.tsx";
 import { StatusBadge } from "@/StatusBadge.tsx";
 import { JobActions } from "@/components/pages/JobDetails/components/JobActions.tsx";
+import { JobDetailsSkeleton } from "@/components/pages/JobDetails/components/JobDetailsSkeleton.tsx";
 import { JobMetadata } from "@/components/pages/JobDetails/components/JobMetadata.tsx";
 import { AttemptDots } from "@/components/pages/JobDetails/components/AttemptDots.tsx";
 import { Box } from "@/components/Box.tsx";
@@ -23,7 +24,7 @@ export const JobDetails: FC = () => {
   }
 
   if (isFetching && !job) {
-    return <>Loading ...</>;
+    return <JobDetailsSkeleton />;
   }
 
   return (
