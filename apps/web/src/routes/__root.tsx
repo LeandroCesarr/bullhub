@@ -3,7 +3,7 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { DefaultLayout } from "@/components/layouts/DefaultLayout";
-import {RefreshIndicator} from "@/components/RefreshIndicator";
+import { RefreshIndicator } from "@/components/RefreshIndicator";
 import { Toaster } from "sonner";
 import { Fragment } from "react";
 
