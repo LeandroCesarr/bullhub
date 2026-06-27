@@ -37,6 +37,33 @@ export class JobService {
     };
   }
 
+  public async cancel(queueName: string, jobId: string): Promise<void> {
+    const job = await this.fetchFromSource(queueName, jobId);
+
+    const [isCompleted, isFailed] = await Promise.all([
+      job.isCompleted(),
+      job.isFailed(),
+    ]);
+
+    if (isCompleted || isFailed) {
+      throw new ConflictException("Cannot cancel a job that is already completed or failed");
+    }
+
+    await job.remove();
+  }
+
+  public async promote(queueName: string, jobId: string): Promise<void> {
+    const job = await this.fetchFromSource(queueName, jobId);
+
+    const isDelayed = await job.isDelayed();
+
+    if (!isDelayed) {
+      throw new ConflictException("Only delayed jobs can be promoted");
+    }
+
+    await job.promote();
+  }
+
   public async retry(queueName: string, jobId: string): Promise<void> {
     const job = await this.fetchFromSource(queueName, jobId);
 
@@ -46,7 +73,7 @@ export class JobService {
       throw new ConflictException("Invalid job status to retry");
     }
 
-    await job.retry();
+    await job.retry(isCompleted ? "completed" : "failed");
   }
 
   private async fetchFromSource(queueName: string, id: string): Promise<Job> {
