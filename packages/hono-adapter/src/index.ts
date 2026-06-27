@@ -22,7 +22,7 @@ export function registerBullhub(app: Hono, opts: BullhubOptions) {
         return c.json(result);
       } catch (error) {
         const message = error instanceof Error ? error.message : "internal server error";
-        return c.json({ error: message }, 500);
+        return c.json({ error: message }, error.statusCode);
       }
     });
   }

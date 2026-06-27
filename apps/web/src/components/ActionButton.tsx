@@ -11,6 +11,9 @@ const button = tv({
       error:
         "bg-status-error/10 text-status-error border border-status-error/30 hover:bg-status-error/20",
     },
+    disabled: {
+      true: "!bg-card text-border border border-border",
+    },
   },
   defaultVariants: {
     theme: "primary",
@@ -22,10 +25,18 @@ interface ActionButtonProps extends VariantProps<typeof button> {
   icon: LucideIcon;
   iconClassName?: string;
   label: string;
+  disabled?: boolean;
 }
 
-export const ActionButton: FC<ActionButtonProps> = ({ onClick, theme, icon: Icon, label, iconClassName }) => (
-  <button onClick={onClick} className={button({ theme })}>
+export const ActionButton: FC<ActionButtonProps> = ({
+  onClick,
+  theme,
+  icon: Icon,
+  label,
+  iconClassName,
+  disabled,
+}) => (
+  <button onClick={onClick} className={button({ theme, disabled })}>
     <Icon size={14} className={iconClassName} />
     {label}
   </button>

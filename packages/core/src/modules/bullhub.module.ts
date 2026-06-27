@@ -75,6 +75,15 @@ export function createBullhub(opts: BullhubOptions): BullhubContext {
       },
     },
 
+    {
+      method: "POST",
+      path: "/api/queues/:queue/jobs/:id/retry",
+      handler: async (params) => {
+        await job.retry(params.queue, params.id);
+        return ApiResponse.noContent();
+      },
+    },
+
     //#endregion
 
     //#region Redis

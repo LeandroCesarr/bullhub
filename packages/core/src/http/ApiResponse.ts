@@ -29,4 +29,8 @@ export class ApiResponse<T> {
   static notFound(message = "not found"): ApiResponse<null> {
     return new ApiResponse({ status: 404, message }, null);
   }
+
+  static noContent(message = "no content"): ApiResponse<null> {
+    return new ApiResponse({ status: 204, message }, null);
+  }
 }
