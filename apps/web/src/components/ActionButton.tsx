@@ -1,4 +1,5 @@
 import { tv, type VariantProps } from "tailwind-variants";
+import { Loader2 } from "lucide-react";
 import type { FC, MouseEventHandler } from "react";
 import type { LucideIcon } from "lucide-react";
 
@@ -12,7 +13,10 @@ const button = tv({
         "bg-status-error/10 text-status-error border border-status-error/30 hover:bg-status-error/20",
     },
     disabled: {
-      true: "!bg-card text-border border border-border",
+      true: "!bg-card text-border border border-border cursor-not-allowed",
+    },
+    isLoading: {
+      true: "!bg-card text-border border border-border cursor-wait",
     },
   },
   defaultVariants: {
@@ -26,6 +30,7 @@ interface ActionButtonProps extends VariantProps<typeof button> {
   iconClassName?: string;
   label: string;
   disabled?: boolean;
+  isLoading?: boolean;
 }
 
 export const ActionButton: FC<ActionButtonProps> = ({
@@ -35,9 +40,14 @@ export const ActionButton: FC<ActionButtonProps> = ({
   label,
   iconClassName,
   disabled,
+  isLoading,
 }) => (
-  <button onClick={onClick} className={button({ theme, disabled })}>
-    <Icon size={14} className={iconClassName} />
+  <button onClick={onClick} disabled={disabled || isLoading} className={button({ theme, disabled, isLoading })}>
+    {isLoading ? (
+      <Loader2 size={16} className="animate-spin" />
+    ) : (
+      <Icon size={16} className={iconClassName} />
+    )}
     {label}
   </button>
 );
