@@ -1,0 +1,63 @@
+# openspec/config.yaml
+
+schema: spec-driven
+
+context: |
+  ## Project
+  Open source dashboard for monitoring and managing BullMQ queues.
+  Distributed as an npm package, consumed by developers already using BullMQ
+  in their projects. This is not an application — it is an embeddable library/UI.
+
+  ## Tech Stack
+  - Language: TypeScript (strict mode)
+  - Frontend: React (functional components + hooks)
+  - Backend: Node.js (minimal adapter/server to expose the dashboard API)
+  - Queue: BullMQ (read and operate on the consumer's external queues)
+
+  ## Core principles
+  - Clean Code: expressive names, small functions with a single responsibility
+  - SOLID: especially SRP and DIP — each module has one reason to change
+  - No duplication (DRY): abstract repeated logic before implementing
+  - No hidden side effects: pure functions wherever possible
+  - Explicit error handling: never silence exceptions
+
+  ## Code conventions
+  - TypeScript strict: no `any`, no `as unknown`, explicit types at boundaries
+  - Absolute imports via path aliases (e.g. @/components, @/hooks, @/api)
+  - Small, composable React components — no business logic in JSX
+  - Clear layer separation: UI → hooks → api client → adapter
+
+  ## Public package considerations
+  - Avoid breaking changes to the public API without explicit deprecation
+  - Well-typed public exports — consumers should never have to deal with `any`
+  - Simple setup: the user provides the BullMQ connection, the rest is automatic
+
+  ## Mandatory validation at each task
+  Before applying any code from a task, the AI MUST:
+  1. Display the full code that will be generated or changed
+  2. Wait for explicit confirmation ("ok", "apply", "go ahead") before writing any file
+  3. Never apply multiple tasks at once without intermediate confirmation
+
+rules:
+  proposal:
+    - Describe the problem before proposing the solution
+    - Indicate whether the change affects the public package API (breaking or not)
+    - List impacted components, hooks, or modules
+
+  specs:
+    - Use Given/When/Then format for all scenarios
+    - Cover error scenarios and edge cases, not just the happy path
+    - Reference existing patterns in the project before proposing new ones
+
+  design:
+    - Define TypeScript interfaces and types before detailing implementation
+    - Justify design decisions and list discarded alternatives
+    - Include a sequence diagram for flows between UI, API, and BullMQ
+
+  tasks:
+    - Break down into atomic tasks (max ~1-2h of implementation each)
+    - Each task must be independent and testable in isolation
+    - Never group "create + refactor + integrate" into a single task
+    - First task must always define types/interfaces before any other code
+    - Each task must end with: "Waiting for validation before continuing"
+    - Include a clear acceptance criterion at the end of each task
