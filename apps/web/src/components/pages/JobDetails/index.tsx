@@ -1,9 +1,9 @@
-import { ArrowLeft, RotateCcw, Clock, Trash2 } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Link, useRouter } from "@tanstack/react-router";
 import { Stacktrace } from "@/components/Stacktrace.tsx";
 import { JsonViewer } from "@/components/JsonViewer.tsx";
 import { StatusBadge } from "@/StatusBadge.tsx";
-import { ActionButton } from "@/components/ActionButton.tsx";
+import { JobActions } from "@/components/pages/JobDetails/components/JobActions.tsx";
 import { JobMetadata } from "@/components/pages/JobDetails/components/JobMetadata.tsx";
 import { AttemptDots } from "@/components/pages/JobDetails/components/AttemptDots.tsx";
 import { Box } from "@/components/Box.tsx";
@@ -20,18 +20,6 @@ export const JobDetails: FC = () => {
 
   function handleBack() {
     router.history.back();
-  }
-
-  function handleRetry() {
-    // console.log("retry", job.id);
-  }
-
-  function handleRequeue() {
-    // console.log("requeue", job.id);
-  }
-
-  function handleDelete() {
-    // console.log("delete", job.id);
   }
 
   if (isFetching && !job) {
@@ -62,22 +50,7 @@ export const JobDetails: FC = () => {
               </p>
             </div>
 
-            <div className="flex gap-2 flex-wrap">
-              <ActionButton
-                icon={RotateCcw}
-                onClick={handleRetry}
-                label="retry"
-                theme="primary"
-                iconClassName="group-hover:rotate-[-270deg] transition-transform duration-300"
-              />
-              <ActionButton
-                onClick={handleRequeue}
-                icon={Clock}
-                label="requeue"
-                theme="foreground"
-              />
-              <ActionButton onClick={handleDelete} icon={Trash2} label="delete" theme="error" />
-            </div>
+            <JobActions job={job} />
           </div>
 
           <div className="grid grid-cols-3 gap-4 mb-4">
