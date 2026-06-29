@@ -4,8 +4,8 @@ import type { BullhubOptions } from "@bullhub/core";
 
 export type { BullhubOptions };
 
-export function registerBullhub(app: Hono, opts: BullhubOptions) {
-  const { routes, client } = createBullhub(opts);
+export async function registerBullhub(app: Hono, opts: BullhubOptions) {
+  const { routes, client } = await createBullhub(opts);
 
   const basePath = opts.basePath ?? "";
 
