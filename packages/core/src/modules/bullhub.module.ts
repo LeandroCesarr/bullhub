@@ -4,13 +4,43 @@ import { ApiResponse } from "../http/ApiResponse";
 import { WorkerService } from "../services/worker.service";
 import { JobService } from "../services/job.service";
 import { QueueService } from "../services/queue.service";
+import { QueueDiscoveryService } from "../services/queue-discovery.service";
 import { RedisClient } from "../clients/redis.client";
 import { RedisService } from "../services/redis.service";
-import type { BullhubContext, BullhubOptions, BullhubRoute } from "../types/bullhub";
+import type {
+  BullhubContext,
+  BullhubDiscoverOptions,
+  BullhubOptions,
+  BullhubOptionsQueue,
+  BullhubRoute,
+} from "../types/bullhub";
 
-export function createBullhub(opts: BullhubOptions): BullhubContext {
+function resolveDiscoverPrefix(discover: boolean | BullhubDiscoverOptions): string {
+  if (typeof discover === "boolean") return "bull";
+  return discover.prefix ?? "bull";
+}
+
+function mergeQueues(
+  explicit: BullhubOptionsQueue[],
+  discovered: BullhubOptionsQueue[],
+): BullhubOptionsQueue[] {
+  const seen = new Set(explicit.map((q) => q.name));
+  return [...explicit, ...discovered.filter((q) => !seen.has(q.name))];
+}
+
+export async function createBullhub(opts: BullhubOptions): Promise<BullhubContext> {
   const redisClient = new RedisClient(opts);
-  const bullmqClient = new BullhubClient(opts);
+
+  let queues: BullhubOptionsQueue[] = opts.queues ?? [];
+
+  if (opts.discover) {
+    const prefix = resolveDiscoverPrefix(opts.discover);
+    const discovery = new QueueDiscoveryService(redisClient);
+    const discovered = await discovery.discover(prefix);
+    queues = mergeQueues(queues, discovered);
+  }
+
+  const bullmqClient = new BullhubClient({ ...opts, queues });
 
   const redis = new RedisService(redisClient);
   const worker = new WorkerService(bullmqClient);
