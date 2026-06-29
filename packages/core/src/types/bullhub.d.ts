@@ -13,11 +13,16 @@ export type BullhubWorker = {
 
 export interface BullhubOptionsQueue {
   name: string;
-  prefix?: string
+  prefix?: string;
 }
 
+export type BullhubDiscoverOptions = {
+  prefix?: string;
+};
+
 export interface BullhubOptions {
-  queues: BullhubOptionsQueue[];
+  queues?: BullhubOptionsQueue[];
+  discover?: boolean | BullhubDiscoverOptions;
   connection: ConnectionOptions;
   basePath?: string;
   metricsCount?: number;

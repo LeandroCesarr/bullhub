@@ -10,7 +10,7 @@ export class BullhubClient {
   constructor({ connection, queues }: BullhubOptions) {
     this.connection = connection;
 
-    for (const queue of queues) {
+    for (const queue of queues ?? []) {
       this.queues.set(queue.name, new Queue(queue.name, { connection, prefix: queue.prefix }));
       this.events.set(
         queue.name,
