@@ -31,7 +31,6 @@ export interface BullhubOptions {
 export interface BullhubContext {
   client: BullhubClient;
   services: {
-    worker: WorkerService;
     job: JobService;
   };
   routes: BullhubRoute[];

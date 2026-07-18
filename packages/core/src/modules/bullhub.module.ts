@@ -48,16 +48,6 @@ export async function createBullhub(opts: BullhubOptions): Promise<BullhubContex
   const job = new JobService(bullmqClient);
 
   const routes: BullhubRoute[] = [
-    // workers
-    {
-      method: "GET",
-      path: "/api/workers",
-      handler: async () => {
-        const result = await worker.index();
-        return ApiResponse.ok(result);
-      },
-    },
-
     //#region Queues
 
     {
@@ -75,6 +65,51 @@ export async function createBullhub(opts: BullhubOptions): Promise<BullhubContex
       handler: async () => {
         const result = await queue.getAggregateActivityMetrics();
         return ApiResponse.ok(result);
+      },
+    },
+
+    {
+      method: "GET",
+      path: "/api/queues/:queue/metrics",
+      handler: async (params) => {
+        const result = await queue.getActivityMetrics(bullmqClient.getQueue(params.queue));
+        return ApiResponse.ok(result);
+      },
+    },
+
+    {
+      method: "GET",
+      path: "/api/queues/:queue/workers",
+      handler: async (params) => {
+        const result = await worker.list(params.queue);
+        return ApiResponse.ok(result);
+      },
+    },
+
+    {
+      method: "POST",
+      path: "/api/queues/:queue/pause",
+      handler: async (params) => {
+        await queue.pause(params.queue);
+        return ApiResponse.noContent();
+      },
+    },
+
+    {
+      method: "POST",
+      path: "/api/queues/:queue/resume",
+      handler: async (params) => {
+        await queue.resume(params.queue);
+        return ApiResponse.noContent();
+      },
+    },
+
+    {
+      method: "DELETE",
+      path: "/api/queues/:queue/drain",
+      handler: async (params) => {
+        await queue.drain(params.queue);
+        return ApiResponse.noContent();
       },
     },
 
@@ -148,7 +183,7 @@ export async function createBullhub(opts: BullhubOptions): Promise<BullhubContex
     //#endregion
   ];
 
-  return { client: bullmqClient, services: { worker, job }, routes };
+  return { client: bullmqClient, services: { job }, routes };
 }
 
 export { BullhubClient };

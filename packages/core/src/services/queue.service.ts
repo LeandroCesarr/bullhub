@@ -1,5 +1,6 @@
 import type { BullhubClient } from "../clients/bullmq.client";
 import { BullhubQueue } from "../models/BullhubQueue";
+import { ConflictException } from "../exceptions/ConflictException";
 import type { ActivityMetric, BullhubOptions } from "../types/bullhub";
 import type { Queue } from "bullmq";
 
@@ -27,13 +28,32 @@ export class QueueService {
     ]);
 
     const now = Date.now();
-    const currentHour = Math.floor(now / ONE_HOUR) * ONE_HOUR
+    const currentHour = Math.floor(now / ONE_HOUR) * ONE_HOUR;
 
     return Array.from({ length: this.metricsCount }, (_, i) => ({
       time: currentHour - (23 - i) * ONE_HOUR,
       completed: completed.data[i],
       failed: failed.data[i],
     }));
+  }
+
+  async pause(queueName: string): Promise<void> {
+    const queue = this.client.getQueue(queueName);
+    const isPaused = await queue.isPaused();
+    if (isPaused) throw new ConflictException("Queue is already paused");
+    await queue.pause();
+  }
+
+  async resume(queueName: string): Promise<void> {
+    const queue = this.client.getQueue(queueName);
+    const isPaused = await queue.isPaused();
+    if (!isPaused) throw new ConflictException("Queue is not paused");
+    await queue.resume();
+  }
+
+  async drain(queueName: string): Promise<void> {
+    const queue = this.client.getQueue(queueName);
+    await queue.drain();
   }
 
   public async getAggregateActivityMetrics(): Promise<ActivityMetric[]> {
