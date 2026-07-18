@@ -1,11 +1,11 @@
-import { LayoutDashboard, ListTodo, type LucideIcon } from "lucide-react";
+import { LayoutDashboard, Layers, ListTodo, type LucideIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import type { FC } from "react";
-import Logo from '@/assets/logo.svg'
+import Logo from "@/assets/logo.svg";
 
 const items = [
   { id: "dashboard", href: "/", icon: LayoutDashboard, label: "Dashboard" },
-  // { id: "queues", href: "/queues", icon: Layers, label: "Queues" },
+  { id: "queues", href: "/queues", icon: Layers, label: "Queues" },
   { id: "jobs", href: "/jobs", icon: ListTodo, label: "Jobs" },
   // { id: "scheduled", href: "/scheduled", icon: Clock, label: "Scheduled" },
   // { id: "workers", href: "/workers", icon: Users, label: "Workers" },
@@ -50,7 +50,7 @@ export function Sidebar() {
       <div className="mb-8">
         <div className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-200 group relative bg-primary">
           <span className="text-primary-foreground font-bold text-lg">
-            <img src={Logo} className="w-7 h-7" alt="Bullhub"  />
+            <img src={Logo} className="w-7 h-7" alt="Bullhub" />
           </span>
         </div>
       </div>
