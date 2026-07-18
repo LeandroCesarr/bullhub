@@ -12,6 +12,7 @@ const failedStatus = new Set([JobStateEnum.FAILED, JobStateEnum.UNKNOWN]);
 export class BullhubQueue {
   readonly name: string;
   readonly total: number;
+  readonly paused: boolean;
 
   readonly jobs: Record<JobStateEnum, number>;
 
