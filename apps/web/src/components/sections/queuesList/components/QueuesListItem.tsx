@@ -1,5 +1,6 @@
 import { BullhubQueue } from "@/models/BullhubQueue.ts";
 import type { FC } from "react";
+import { Link } from "@tanstack/react-router";
 import { cn } from "@/utils/css.ts";
 import { QueueBar } from "@/components/sections/queuesList/components/QueueBar.tsx";
 
@@ -17,7 +18,11 @@ export const QueuesListItem: FC<{ queue: BullhubQueue }> = ({ queue }) => {
   const indicator = indicatorPercentageMap.findIndex((e) => e === greaterPercentage);
 
   return (
-    <div className="py-2.5">
+    <Link
+      to="/queues/$queueName"
+      params={{ queueName: queue.name }}
+      className="block py-2.5 hover:bg-secondary/40 px-4 rounded-md transition-colors"
+    >
       <div className="flex items-center gap-1.5 mb-1.5">
         <span className={cn("w-1.5 h-1.5 rounded-full shrink-0", indicatorMap[indicator])} />
         <span className="text-xs font-medium">{queue.name}</span>
@@ -32,6 +37,6 @@ export const QueuesListItem: FC<{ queue: BullhubQueue }> = ({ queue }) => {
         pend={aggregateJobs.pending}
         fail={aggregateJobs.failed}
       />
-    </div>
+    </Link>
   );
 };

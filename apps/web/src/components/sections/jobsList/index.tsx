@@ -18,9 +18,10 @@ interface JobsListProps {
   className?: string;
   search: JobsListSearchProps;
   onChange: (value: JobsListSearchProps) => void;
+  hideQueueSelector?: boolean;
 }
 
-export const JobsList: FC<JobsListProps> = ({ search, onChange, className }) => {
+export const JobsList: FC<JobsListProps> = ({ search, onChange, className, hideQueueSelector }) => {
   const { data, error, isFetching } = useJobs(search);
 
   const shouldShowEmptyMessage = !search.queueName && search.state;
@@ -53,7 +54,9 @@ export const JobsList: FC<JobsListProps> = ({ search, onChange, className }) => 
       <List.Root className="flex grow w-full items-stretch justify-stretch flex-col">
         <List.Header title="Recent jobs">
           <div className="flex items-center gap-2">
-            <QueueSelector value={search.queueName} onChange={handleQueueChange} />
+            {!hideQueueSelector && (
+              <QueueSelector value={search.queueName} onChange={handleQueueChange} />
+            )}
             <JobStateSelector value={search.state} onChange={handleStateChange} />
           </div>
         </List.Header>

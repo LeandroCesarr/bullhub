@@ -4,6 +4,7 @@ import { RedisInfo } from "@/components/RedisInfo.tsx";
 import { QueuesList } from "@/components/sections/queuesList";
 import { ActivityMetricsChart } from "@/components/sections/activityMetricsChart";
 import { useQueues } from "@/hooks/useQueues.ts";
+import { useActivityMetrics } from "@/hooks/useActivityMetrics.ts";
 import { JobsList, type JobsListSearchProps } from "@/components/sections/jobsList";
 
 // ─── mock data ────────────────────────────────────────────────────────────────
@@ -178,11 +179,13 @@ function RecentJobsCard() {
 // ─── dashboard page ───────────────────────────────────────────────────────────
 
 export function Dashboard() {
+  const { data: metrics } = useActivityMetrics();
+
   return (
     <div className="p-6 bg-background text-foreground font-mono flex flex-col gap-4">
       <div className="grid grid-cols-4 gap-4">
         <div className="col-span-3 flex items-stretch justify-stretch min-h-96">
-          <ActivityMetricsChart />
+          {metrics && <ActivityMetricsChart data={metrics} />}
         </div>
         {/*<OverviewCard />*/}
         <RedisInfo />
